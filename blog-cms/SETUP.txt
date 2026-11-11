@@ -1,0 +1,23 @@
+autenflo Blog CMS: setup (ek baar ka kaam)
+
+1) Files repo me daalo (apni site ke root me, jahan index.html hai):
+   admin/index.html
+   netlify/functions/admin.mjs
+   assets/blog-layouts.css
+   blog/posts.json     (purani posts.json ko replace karo)
+   package.json        (agar pehle se hai to sirf "@netlify/blobs" dependency jodo)
+   netlify.toml        (agar pehle se hai to sirf functions = "netlify/functions" wali line jodo)
+   Agar aapki site repo ke kisi subfolder me hai, to netlify/ folder phir bhi repo ke ROOT me rahega.
+
+2) GitHub token banao (sirf isi repo ke liye, Permission: Contents = Read and write).
+
+3) Netlify > Site configuration > Environment variables me ye daalo:
+   GITHUB_TOKEN    = aapka GitHub token
+   GITHUB_REPO     = username/repo-name
+   SESSION_SECRET  = koi bhi lamba random text (40+ characters)
+   SETUP_KEY       = koi secret shabd (sirf pehla account banane ke liye)
+   GITHUB_BRANCH   = main            (optional)
+   GITHUB_BASE     = subfolder/      (optional, sirf agar site repo ke subfolder me hai)
+   SITE_URL        = https://autenflo.com   (optional)
+
+4) Deploy hone do. Phir autenflo.com/admin/ kholo, "Account banayein" me username, password aur SETUP_KEY daalo.
