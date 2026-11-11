@@ -1,0 +1,1 @@
+function hidePre(){var p=document.getElementById("pre");if(p)p.style.display="none"}addEventListener("load",hidePre);setTimeout(hidePre,2500);var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();
