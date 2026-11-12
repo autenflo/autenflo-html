@@ -12,19 +12,46 @@ R = lambda n: open(os.path.join(HERE, n), encoding='utf-8').read()
 data = json.load(open(os.path.join(HERE, 'cities.json'), encoding='utf-8'))
 states, cities = data['states'], data['cities']
 SITE = 'https://autenflo.com'
-TODAY = '2026-11-10'
+TODAY = '2026-11-12'
 AI = '<b class="aih">AI</b>'
 WA = lambda t: 'https://wa.me/918849031907?text=' + U.quote(t)
 WI = '<svg class="wi" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa"></use></svg>'
 SPRITE, BG, LEARN = R('sprite.html'), R('bg.html'), R('learn.svg')
 STATE_NAME = {'bihar': 'Bihar', 'uttar-pradesh': 'Uttar Pradesh', 'jharkhand': 'Jharkhand'}
 
+# ---------- URL registry (SEO slugs): sirf yahin badlo, links/sitemap/canonical/redirects sab apne aap ----------
+KW = 'ai-whatsapp-automation'
+U_HOME = '/'
+U_CITIES = f'/{KW}-bihar-up-jharkhand/'
+U_TRAIN = '/ai-training-for-schools-and-colleges/'
+U_ABOUT = '/about-autenflo/'
+U_PRIVACY = '/privacy-policy/'
+U_TERMS = '/terms-of-service/'
+U_BLOG = '/blog/'
+def u_state(st): return f'/{KW}-{st}/'
+def u_city(slug): return f'/{KW}-{slug}/'
+POST_SLUG = {
+ 'missed-enquiry-check-khud-kaise-karein': 'missed-whatsapp-enquiry-kaise-check-karein-7-din',
+ 'follow-up-1-3-7-din-ka-rule': 'customer-follow-up-1-3-7-din-rule-templates',
+ 'whatsapp-par-60-second-me-reply': 'whatsapp-par-customer-ko-60-second-me-reply-kaise-dein',
+}
+def u_post(old): return f'/blog/{POST_SLUG[old]}/'
+def fp(url): return 'index.html' if url == '/' else url.strip('/') + '/index.html'
+
+def crumbs_html(items):
+    parts = [f'<a href="{u}">{E(n)}</a>' for n, u in items[:-1]] + [f'<span aria-current="page">{E(items[-1][0])}</span>']
+    return '<p class="crumbs">' + ' / '.join(parts) + '</p>'
+def crumbs_ld(items):
+    return {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': i, 'name': n, 'item': SITE + u} for i, (n, u) in enumerate(items, 1)]}
+ORG = {'@type': 'Organization', 'name': 'autenflo', 'url': SITE}
+
 def write(path, s):
     p = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, 'w', encoding='utf-8').write(s)
 
-LINKS = [('/#aapka', 'Businesses'), ('/#plans', 'Pricing'), ('/cities/', 'Cities'), ('/blog/', 'Blog'), ('/about/', 'About')]
+LINKS = [('/#aapka', 'Businesses'), ('/#plans', 'Pricing'), (U_CITIES, 'Cities'), (U_BLOG, 'Blog'), (U_ABOUT, 'About')]
 HEADER = ('<header><div class="wrap"><a href="/" aria-label="autenflo home"><img src="/logo.png" alt="autenflo"></a><nav>'
           + ''.join(f'<a class="ul" href="{h}">{t}</a>' for h, t in LINKS)
           + f'<a class="btn wab mag" href="{WA("Namaste autenflo, mujhe free missed-enquiry check chahiye")}">{WI}WhatsApp</a></nav>'
@@ -36,7 +63,7 @@ def _footer():
     for c in cities: top.setdefault(c['state'], []).append(c)
     cols = ''
     for k in states:
-        cols += f'<div class="fc"><h4>{STATE_NAME[k]}</h4><ul>' + ''.join(f'<li><a href="/{k}/{c["slug"]}/">{E(c["name"])}</a></li>' for c in top[k][:6]) + f'<li><a class="all" href="/{k}/">Sabhi cities dekhein →</a></li></ul></div>'
+        cols += f'<div class="fc"><h4>{STATE_NAME[k]}</h4><ul>' + ''.join(f'<li><a href="{u_city(c["slug"])}">{E(c["name"])}</a></li>' for c in top[k][:6]) + f'<li><a class="all" href="{u_state(k)}">Sabhi cities dekhein →</a></li></ul></div>'
     return ('<footer class="ft"><div class="wrap">'
       '<div class="fcta glass"><div><h3>Apne business ka free missed-enquiry check karwayein.</h3><p>15 minute. Pichhli 7 din ki enquiries gin kar batate hain kitni late ya miss hui. Koi pitch nahi, koi dabaav nahi.</p></div>'
       f'<a class="btn wab mag" href="{wa}">{WI}WhatsApp par baat karein</a></div>'
@@ -44,7 +71,7 @@ def _footer():
       '<div class="fb0"><img src="/logo.png" alt="autenflo"><p>autenflo aapke business ka AI back-office hai: enquiry ka reply, follow-up, payment reminder aur marketing, sab WhatsApp par, 24x7. Patna, Bihar.</p>'
       f'<div class="fct"><a class="ul" href="mailto:hello@autenflo.com">hello@autenflo.com</a><a class="ul" href="{wa}">WhatsApp: +91 88490 31907</a></div></div>'
       '<div class="fc"><h4>Quick links</h4><ul><li><a href="/">Home</a></li><li><a href="/#aapka">Businesses</a></li><li><a href="/#plans">Pricing</a></li><li><a href="/#results">Hamara tareeka</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/#sampark">Contact</a></li></ul></div>'
-      '<div class="fc"><h4>Explore</h4><ul><li><a href="/blog/">Blog</a></li><li><a href="/ai-training/">AI Training for Institutions</a></li><li><a href="/cities/">Sabhi Cities</a></li><li><a href="/about/">About</a></li><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms</a></li></ul></div>'
+      f'<div class="fc"><h4>Explore</h4><ul><li><a href="{U_BLOG}">Blog</a></li><li><a href="{U_TRAIN}">AI Training for Institutions</a></li><li><a href="{U_CITIES}">Sabhi Cities</a></li><li><a href="{U_ABOUT}">About</a></li><li><a href="{U_PRIVACY}">Privacy Policy</a></li><li><a href="{U_TERMS}">Terms</a></li></ul></div>'
       + cols + '</div>'
       '<div class="fbot"><p>© <span id="yr">2026</span> autenflo. Sabhi adhikar surakshit.</p><p>Bihar · Uttar Pradesh · Jharkhand ke businesses ke liye ❤️ se banaya</p><a class="ul" href="#top">Upar jaayein ↑</a></div>'
       '</div></footer>')
@@ -98,41 +125,49 @@ def city_seo(slug):
 
 # ---------- city page H1: home style ("... ka poora kaam, / AI ke saath. ..."), har shehar ka apna ----------
 CITY_H1 = {
- 'patna': 'Raat 11 baje bhi.',
- 'muzaffarpur': 'Litchi season ki raftaar.',
- 'gaya': 'Pitru Paksha me bhi.',
- 'purnia': 'Door ke gaon tak.',
- 'bhagalpur': 'Silk ke order, seedha dispatch.',
- 'arrah': 'Har lead pakka.',
- 'bihar-sharif': 'Quotation se payment tak.',
- 'darbhanga': 'Order bhi, appointment bhi.',
- 'lucknow': 'Pehle reply, pehla customer.',
- 'varanasi': 'Har bhasha, har channel.',
- 'prayagraj': 'Exam se mela tak.',
- 'gorakhpur': 'Har customer ko turant.',
- 'ayodhya': 'Yatri boom ke liye taiyaar.',
- 'mirzapur': 'Catalogue, rate, dispatch.',
- 'jaunpur': 'Admission bhi, sale bhi.',
- 'azamgarh': 'Har parent ko jawab.',
- 'ranchi': 'Har lead, har appointment.',
- 'jamshedpur': 'Vendor se service tak.',
- 'dhanbad': 'Coal-belt ki raftaar.',
- 'bokaro': 'Steel city ki raftaar.',
- 'deoghar': 'Shravani Mela me bhi.',
+ 'patna': 'Patna me enquiry aati hai har waqt. Jawab bhi do, har waqt',
+ 'muzaffarpur': 'Muzaffarpur ke trader ke liye, enquiry se dispatch tak',
+ 'gaya': 'Gaya ke hotel aur dharamshala ke liye AI booking assistant',
+ 'purnia': 'Purnia ke vyapari ke liye AI jo kabhi chhutti nahi leta',
+ 'bhagalpur': 'Bhagalpur ke silk dukandaar ke liye: rate, catalogue, dispatch',
+ 'arrah': 'Arrah me dukaan chalao, enquiry AI sambhale',
+ 'bihar-sharif': 'Bihar Sharif me chhota business, bada system',
+ 'darbhanga': 'Darbhanga ke makhana aur medical business ke liye AI',
+ 'lucknow': 'Lucknow ka business ab customer ko nahi rukata',
+ 'varanasi': 'Varanasi ke yatri aur khareedar, dono ko turant jawab',
+ 'prayagraj': 'Prayagraj ke coaching aur hotel ke liye AI assistant',
+ 'gorakhpur': 'Gorakhpur ke hospital, dukaan aur coaching ke liye 24x7 reply',
+ 'ayodhya': 'Ayodhya ke hotel aur dukaan: booking aur enquiry, 24x7',
+ 'mirzapur': 'Mirzapur ke exporter ke liye: buyer ko turant jawab',
+ 'jaunpur': 'Jaunpur ke coaching aur dukandaar ke liye 24x7 assistant',
+ 'azamgarh': 'Azamgarh ke school aur coaching ke liye: enquiry se admission tak',
+ 'ranchi': 'Ranchi ke clinic, coaching aur dukaan ke liye AI',
+ 'jamshedpur': 'Jamshedpur ke chhote udyog ke liye AI jo hisaab aur reminder dekhe',
+ 'dhanbad': 'Dhanbad ke dukandaar aur clinic ke liye: har customer ko jawab',
+ 'bokaro': 'Bokaro ke dukandaar aur coaching ke liye 24x7 reply',
+ 'deoghar': 'Deoghar ke hotel aur peda dukaan ke liye AI assistant',
 }
-def city_h1(slug):
-    return f'{E(CITY_SEO[slug][0])} ka poora kaam, <br>{AI} ke saath. {E(CITY_H1[slug])}'
+HUB_H1 = {
+ 'bihar': 'Patna se Purnia tak: har enquiry ka turant jawab.',
+ 'uttar-pradesh': 'Lucknow se Gorakhpur tak: enquiry se payment tak, sab AI se.',
+ 'jharkhand': 'Ranchi se Dhanbad tak: reply, follow-up, hisaab, sab AI se.',
+}
+def aih(t): return re.sub(r'\bAI\b', AI, E(t))
+def city_h1(slug): return aih(CITY_H1[slug])
 
-def page(path, title, desc, main, jsonld=(), extra_js=(), og='website', noindex=False):
+def page(path, title, desc, main, jsonld=(), extra_js=(), og='website', noindex=False, crumbs=None, image=None):
     if noindex: NOINDEX.add(path)
     url = SITE + '/' + path.replace('index.html', '').lstrip('/')
-    ld = ''.join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in jsonld)
+    jl = list(jsonld) + ([crumbs_ld(crumbs)] if crumbs else [])
+    ld = ''.join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in jl)
     js = ''.join(f'<script src="{s}"></script>' for s in ('/assets/site.js', *extra_js))
-    rb = '<meta name="robots" content="noindex,follow">' if noindex else ''
+    rb = '<meta name="robots" content="noindex,follow">' if noindex else '<meta name="robots" content="index,follow,max-image-preview:large">'
+    img = image or SITE + '/og.png'
     html = (f'<!doctype html>\n<html lang="hi-Latn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
             f'{rb}<title>{E(title)}</title><meta name="description" content="{E(desc, quote=True)}"><link rel="canonical" href="{url}"><link rel="icon" href="/logo.png">'
             f'<meta name="theme-color" content="#8a62d6"><meta property="og:type" content="{og}"><meta property="og:site_name" content="autenflo"><meta property="og:title" content="{E(title, quote=True)}">'
-            f'<meta property="og:description" content="{E(desc, quote=True)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{SITE}/og.png"><meta name="twitter:card" content="summary_large_image">'
+            f'<meta property="og:description" content="{E(desc, quote=True)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{img}"><meta property="og:locale" content="hi_IN"><meta name="twitter:card" content="summary_large_image">'
+            f'<meta name="twitter:title" content="{E(title, quote=True)}"><meta name="twitter:description" content="{E(desc, quote=True)}"><meta name="twitter:image" content="{img}">'
             '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
             '<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Outfit:wght@200..900&display=swap" rel="stylesheet">'
             f'<link rel="stylesheet" href="/assets/style.css">{ld}<noscript><style>#pre{{display:none}}</style></noscript>'
@@ -141,20 +176,6 @@ def page(path, title, desc, main, jsonld=(), extra_js=(), og='website', noindex=
             f'<body>{SPRITE}<div id="pre"><img src="/logo.png" alt="autenflo"><i></i></div><div class="pbar"></div>{BG}'
             '<a class="ann" href="/#plans">🎁 Startups ke liye khaas offer: har plan ke saath <b>FREE Branding Consulting</b> →</a>'
             f'{HEADER}\n{main}\n{FOOTER}{FAB}{js}</body></html>')
-    depth = path.count('/')
-    pre = '../' * depth
-    def _rel(m):
-        t = m.group(2)
-        if t.startswith('//'): return m.group(0)
-        if t == '/': t = 'index.html'
-        elif t.startswith('/#'): t = 'index.html' + t[1:]
-        else:
-            t = t[1:]
-            hs = t.split('#', 1)
-            if hs[0].endswith('/'): hs[0] += 'index.html'
-            t = '#'.join(hs)
-        return f'{m.group(1)}"{pre}{t}"'
-    html = re.sub(r'((?:href|src)=)"(/[^"]*)"', _rel, html)
     write(path, html)
     return url
 
@@ -204,7 +225,7 @@ SOLUTIONS = [
     ('📦 Operations', 'Order aate hi sheet me. Stock kam hote hi alert. Kaam seedha sahi insaan ke paas.',
      ['Order apne aap sheet me', 'Stock khatam hone se pehle alert', 'Kaam staff ko auto assign, status track']),
     ('💬 Customer service', f'24x7 reply, Hindi me, aapke andaaz me. Jo {AI} na sambhaal paye, wo seedha aapko.',
-     [f'WhatsApp {AI} agent, 24x7', 'Hindi voice agent calls uthata hai (pilot me)', 'Zaroori baat par turant aapko forward']),
+     [f'WhatsApp {AI} agent, 24x7', 'Hindi voice agent calls uthata hai', 'Zaroori baat par turant aapko forward']),
     ('🧾 Finance', 'Reminder tameez se, khud. Bill ki photo se entry. Har shaam aaj ka hisaab.',
      ['Due date par polite payment reminder', 'Bill ki photo se entry aur GST data', 'Roz shaam kamai aur baaki ka summary']),
     ('🎓 Training', f'Schools, Colleges aur Institutions ke liye {AI} Training.',
@@ -219,80 +240,68 @@ def faq_list(n):
         ('Kya customer se Hindi me baat hoti hai?', 'Haan, Hindi me aur zaroorat par English me. Jahan insaan ki zaroorat ho, wahan baat seedha aap ya aapke staff tak pahunch jaati hai.'),
     ]
 
-def city_page(c):
-    n, st = c['name'], c['state']; s = states[st]; sn = STATE_NAME[st]
-    url = f'{SITE}/{st}/{c["slug"]}/'
-    msg = WA(f'Namaste autenflo, main {n} se hu. Mujhe apne business ko AI ki power chahiye.')
-    near = [x for x in cities if x['state'] == st and x['slug'] != c['slug']][:4]
-    faq = faq_list(n)
-    offer = ('<div class="offer glass"><span class="gi">🎁</span><div><b>Startups ke liye khaas offer</b><p>Har plan ke saath <strong>FREE Branding Consulting</strong>: aapka brand, positioning aur pehchaan, shuru se sahi.</p></div></div>' if st == 'bihar' else '')
-    prob = ''.join(f'<article class="glass bz"><span class="em">{e}</span><h3>{t}</h3><p class="fx1">{d}</p></article>' for e, t, d in PROBLEMS)
-    steps = ''.join(f'<div class="st on"><span class="dot">{i}</span><div><h3>{h}</h3><p>{p}</p></div></div>' for i, (h, p) in enumerate(STEPS, 1))
-    plans = ''.join('<article class="glass pad pl"><h3>%s</h3><p class="for">%s</p><p><small>One-time installation</small><br><strong>₹%s</strong></p><p><small>Har mahine</small><br><strong>₹%s</strong></p><ul class="fr">%s</ul></article>' % (a, b, c1, d, ''.join(f'<li>{x}</li>' for x in fr)) for a, b, c1, d, fr in PLANS)
-    main = f'''<main id="top"><section class="chero"><div class="wrap"><p class="crumbs"><a href="/">Home</a> / <a href="/cities/">Shehar</a> / <a href="/{st}/">{sn}</a> / {n}</p><div class="chg"><div><span class="eyebrow">{n} · {sn}</span><h1 class="h1s">{city_h1(c["slug"])}</h1><p class="lead">{n} ke business ke liye: enquiry ka reply, hot leads ka follow-up, marketing aur social media posts aur videos, payment reminder aur hisaab. Sab {AI} se, 24x7.</p><div class="cta"><a class="btn wab mag" href="{msg}">{WI}{n} ke liye baat karein</a><a class="btn ghost mag" href="#plans">Pricing dekhein</a></div></div>{hero_art(s['a'], s['b'], 'autenflo AI ka business setup')}</div></div></section>
-<section class="sec"><div class="wrap"><span class="eyebrow">Sach bataiye</span><h2 class="wide">Har business me paanch jagah paisa chupchap leak hota hai.</h2><div class="g3">{prob}</div></div></section>
-<section class="sec"><div class="wrap"><span class="eyebrow">Kaise shuru hota hai</span><h2>Teen kadam. Phir {AI} kaam sambhalta hai.</h2><div class="tl">{steps}<div class="line"><i style="transform:none"></i></div></div></div></section>
-<section class="sec" id="plans"><div class="wrap"><span class="eyebrow">Pricing</span><h2 class="wide">Ek baar installation, phir chhota monthly charge.</h2>{offer}<div class="g3">{plans}</div><p class="note c">WhatsApp API platform (WATI, Interakt jaise), Meta ke message charges aur AI usage ka kharcha aapke apne account se jata hai. <a class="ul" href="/#plans">Poori details dekhein</a></p></div></section>
-<section class="sec"><div class="wrap"><span class="eyebrow">Kiske liye</span><h2 class="wide">Har tarah ke business ke liye.</h2><div class="chips">{''.join(f'<span>{b}</span>' for b in BIZ)}</div></div></section>
-<section class="sec fq"><div class="wrap"><span class="eyebrow">Mann me jo sawal hain</span><h2>Pehle ye jaan lijiye</h2>{''.join(f'<details><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q, a in faq)}</div></section>
-<section class="sec"><div class="wrap"><div class="glass fin2"><div><h2>{n} ke apne business me {AI} lagayein.</h2><p class="sub">WhatsApp par batayiye aapka business kya hai, hum bataenge shuruaat kahan se karein.</p></div><a class="btn wab mag" href="{msg}">{WI}WhatsApp par abhi baat karein</a></div><h3 class="mt2">{sn} ke aur shehar</h3><div class="cgrid">{''.join(f'<a class="cc glass" href="/{x["state"]}/{x["slug"]}/"><div><h3>{x["name"]}</h3><p>Business ke liye AI ki power</p></div></a>' for x in near)}</div></div></section></main>'''
-    ld = [{'@context': 'https://schema.org', '@type': 'WebPage', 'name': f'{n} ke business ke liye AI | autenflo', 'url': url},
-          {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
-              {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE + '/'}, {'@type': 'ListItem', 'position': 2, 'name': sn, 'item': f'{SITE}/{st}/'}, {'@type': 'ListItem', 'position': 3, 'name': n, 'item': url}]},
-          {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]}]
-    page(f'{st}/{c["slug"]}/index.html', f'{n} ke business ke liye AI ki power | autenflo',
-         f'{n} ke business ke liye autenflo: enquiry ka reply, hot leads ka follow-up, marketing, social media aur payment reminder, sab AI se. Installation ₹9,999 se.', main, ld)
-    return url
-
 from city_data import CITY
 
 def city_page(c):
     n, st = c['name'], c['state']; s = states[st]; sn = STATE_NAME[st]; d = CITY[c['slug']]
-    url = f'{SITE}/{st}/{c["slug"]}/'
+    url = SITE + u_city(c['slug'])
+    CR = [('Home', '/'), ('Cities', U_CITIES), (sn, u_state(st)), (n, u_city(c['slug']))]
     msg = WA(f'Namaste autenflo, main {n} se hu. Mujhe apne business ko AI ki power chahiye.')
     near = [x for x in cities if x['state'] == st and x['slug'] != c['slug']][:4]
     faq = [d['faq'], faq_list(n)[2]]
     pricing = PRICING.replace('text=Namaste%20autenflo%2C%20mujhe%20', 'text=' + U.quote(f'Namaste autenflo, main {n} se hu. Mujhe '))
-    sol = ''.join(f'<article class="glass bz"><span class="tg2">{t}</span><h3>{h}</h3><ul class="sl">' + ''.join(f'<li>{x}</li>' for x in li) + '</ul>' + ('<p style="margin-top:14px"><a class="ul" href="/ai-training/">Plans dekhein →</a></p>' if t.startswith('🎓') else '') + '</article>' for t, h, li in SOLUTIONS)
+    sol = ''.join(f'<article class="glass bz"><span class="tg2">{t}</span><h3>{h}</h3><ul class="sl">' + ''.join(f'<li>{x}</li>' for x in li) + '</ul>' + ('<p style="margin-top:14px"><a class="ul" href="' + U_TRAIN + '">Plans dekhein →</a></p>' if t.startswith('🎓') else '') + '</article>' for t, h, li in SOLUTIONS)
     t1, t2 = d['biz'][0][0], d['biz'][1][0]
     offer = ('<div class="offer glass"><span class="gi">🎁</span><div><b>Startups ke liye khaas offer</b><p>Har plan ke saath <strong>FREE Branding Consulting</strong>.</p></div></div>' if st == 'bihar' else '')
     cards = ''.join(f'<article class="glass bz"><span class="em">{e}</span><h3>{E(t)}</h3><p class="fx1"><b>Problem:</b> {E(l)}</p><p class="fx1"><b>autenflo:</b> {E(f)}</p></article>' for (t, l, f), e in zip(d['biz'], ('🏪', '📲', '🧾')))
     chat = f'<div class="chat"><div class="cb c">{E(d["chat"][0])}</div><div class="cb b">{E(d["chat"][1])}</div></div>'
     areas = ''.join(f'<span>{E(a)}</span>' for a in d['areas'])
-    main = f"""<main id="top"><section class="chero"><div class="wrap"><p class="crumbs"><a href="/">Home</a> / <a href="/cities/">Shehar</a> / <a href="/{st}/">{sn}</a> / {n}</p><div class="chg"><div><span class="eyebrow">{n} · {sn}</span><h1 class="h1s">{city_h1(c["slug"])}</h1><p class="lead">{E(d['hook'])}</p><div class="cta"><a class="btn wab mag" href="{msg}">{WI}{n} ke liye baat karein</a><a class="btn ghost mag" href="#plans">Pricing dekhein</a></div></div>{hero_art(s['a'], s['b'], 'autenflo AI ka business setup')}</div></div></section>
+    main = f"""<main id="top"><section class="chero"><div class="wrap">{crumbs_html(CR)}<div class="chg"><div><span class="eyebrow">{n} · {sn}</span><h1 class="h1s">{city_h1(c["slug"])}</h1><p class="lead">{E(d['hook'])}</p><div class="cta"><a class="btn wab mag" href="{msg}">{WI}{n} ke liye baat karein</a><a class="btn ghost mag" href="#plans">Pricing dekhein</a></div></div>{hero_art(s['a'], s['b'], 'autenflo AI ka business setup')}</div></div></section>
 <section class="sec"><div class="wrap"><span class="eyebrow">{n} ke business</span><h2 class="wide">{n} me paisa yahan leak hota hai.</h2><div class="g3">{cards}</div></div></section>
 <section class="sec" id="solutions"><div class="wrap"><span class="eyebrow">Hamare solutions</span><h2 class="wide">Sirf WhatsApp nahi. {n} ke business ke poore kaam, ek jagah.</h2><p class="sub">WhatsApp {AI} agent sirf shuruaat hai. Sales, marketing, operations, customer service aur finance, sab hum sambhalte hain, aur institutions ke liye {AI} Training bhi.</p><div class="g3">{sol}</div></div></section>
 <section class="sec"><div class="wrap"><span class="eyebrow">{n} ka business calendar</span><h2 class="wide">Kab {AI} ON karna sabse zyada kaam aata hai.</h2><p class="sub">{E(d['season'])}</p><h3 class="mt2">{n} me ek asli WhatsApp baatcheet</h3>{chat}</div></section>
 <section class="sec"><div class="wrap"><span class="eyebrow">Hum kahan kaam karte hain</span><h2 class="wide">{n} ke in ilaakon ke business ke liye.</h2><div class="chips">{areas}</div></div></section>
-<section class="sec" id="plans"><div class="wrap"><span class="eyebrow">Pricing · {n}</span><h2 class="wide">Naya hire ya agency se kam kharch me. Poora hisaab saaf.</h2>{pricing}</div></section>
+<section class="sec" id="plans"><div class="wrap"><span class="eyebrow">Pricing · {n}</span><h2 class="wide">Employee ki salary ka sirf 12–15%. Kaam ek poori team jitna.</h2>{pricing}</div></section>
 <section class="sec fq"><div class="wrap"><span class="eyebrow">Mann me jo sawal hain</span><h2>Pehle ye jaan lijiye</h2>{''.join(f'<details><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q, a in faq)}</div></section>
-<section class="sec"><div class="wrap"><div class="glass fin2"><div><h2>{n} ke apne business me {AI} lagayein.</h2><p class="sub">WhatsApp par batayiye aapka business kya hai, hum bataenge shuruaat kahan se karein.</p></div><a class="btn wab mag" href="{msg}">{WI}WhatsApp par abhi baat karein</a></div><h3 class="mt2">{sn} ke aur shehar</h3><div class="cgrid">{''.join(f'<a class="cc glass" href="/{x["state"]}/{x["slug"]}/"><div><h3>{x["name"]}</h3><p>{E(CITY[x["slug"]]["biz"][0][0])}</p></div></a>' for x in near)}</div></div></section></main>"""
-    ld = [{'@context': 'https://schema.org', '@type': 'WebPage', 'name': f'{n} me {t1} aur {t2} ke liye AI | autenflo', 'url': url},
-          {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
-              {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE + '/'}, {'@type': 'ListItem', 'position': 2, 'name': sn, 'item': f'{SITE}/{st}/'}, {'@type': 'ListItem', 'position': 3, 'name': n, 'item': url}]},
-          {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]}]
+<section class="sec"><div class="wrap"><div class="glass fin2"><div><h2>{n} ke apne business me {AI} lagayein.</h2><p class="sub">WhatsApp par batayiye aapka business kya hai, hum bataenge shuruaat kahan se karein.</p></div><a class="btn wab mag" href="{msg}">{WI}WhatsApp par abhi baat karein</a></div><h3 class="mt2">{sn} ke aur shehar</h3><div class="cgrid">{''.join(f'<a class="cc glass" href="{u_city(x["slug"])}"><div><h3>{x["name"]}</h3><p>{E(CITY[x["slug"]]["biz"][0][0])}</p></div></a>' for x in near)}</div></div></section></main>"""
     seo_t, seo_d = city_seo(c['slug'])
-    page(f'{st}/{c["slug"]}/index.html', seo_t, seo_d, main, ld)
+    ld = [{'@context': 'https://schema.org', '@type': 'WebPage', '@id': url, 'url': url, 'name': seo_t, 'description': seo_d, 'inLanguage': 'hi-Latn', 'isPartOf': {'@type': 'WebSite', 'name': 'autenflo', 'url': SITE}},
+          {'@context': 'https://schema.org', '@type': 'Service', 'name': f'AI & WhatsApp automation in {n}', 'serviceType': 'AI business automation and WhatsApp automation', 'url': url,
+           'description': seo_d, 'provider': ORG, 'areaServed': {'@type': 'City', 'name': n, 'containedInPlace': {'@type': 'State', 'name': sn}},
+           'offers': {'@type': 'Offer', 'name': 'Launch plan: one-time installation', 'priceCurrency': 'INR', 'price': '9999', 'url': url + '#plans'}},
+          {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]}]
+    page(fp(u_city(c['slug'])), seo_t, seo_d, main, ld, crumbs=CR)
     return url
 
 def hub_page(st):
     s = states[st]; sn = STATE_NAME[st]; lst = [x for x in cities if x['state'] == st]
-    grid = ''.join(f'<a class="cc glass" href="/{x["state"]}/{x["slug"]}/"><div><h3>{x["name"]}</h3><p>Business ke liye AI ki power</p></div></a>' for x in lst)
-    main = f'''<main id="top"><section class="chero"><div class="wrap"><p class="crumbs"><a href="/">Home</a> / <a href="/cities/">Shehar</a> / {sn}</p><div class="chg"><div><span class="eyebrow">{sn}</span><h1 class="h1s">{sn} ke business ko {AI} ki power.</h1><p class="lead">{sn} ke {len(lst)} bade shehron me autenflo ka {AI} setup: enquiry ka reply, follow-up, marketing aur payment reminder.</p></div>{hero_art(s['a'], s['b'], 'autenflo AI')}</div><div class="cgrid">{grid}</div></div></section></main>'''
-    return page(f'{st}/index.html', f'AI & WhatsApp Automation in {states[st]["short"]} | autenflo',
-                f'{states[st]["short"]} ke {len(lst)} shehron ({", ".join(x["name"] for x in lst[:3])} aur aage) me AI aur WhatsApp automation: sales, marketing, operations, finance. ₹9,999 se.', main)
+    grid = ''.join(f'<a class="cc glass" href="{u_city(x["slug"])}"><div><h3>{x["name"]}</h3><p>Business ke liye AI ki power</p></div></a>' for x in lst)
+    CR = [('Home', '/'), ('Cities', U_CITIES), (sn, u_state(st))]
+    main = f'''<main id="top"><section class="chero"><div class="wrap">{crumbs_html(CR)}<div class="chg"><div><span class="eyebrow">{sn}</span><h1 class="h1s">{aih(HUB_H1[st])}</h1><p class="lead">{sn} ke {len(lst)} bade shehron me autenflo ka {AI} setup: enquiry ka reply, follow-up, marketing aur payment reminder.</p></div>{hero_art(s['a'], s['b'], 'autenflo AI')}</div><div class="cgrid">{grid}</div></div></section></main>'''
+    t = f'AI & WhatsApp Automation in {states[st]["short"]} | autenflo'
+    d = f'{states[st]["short"]} ke {len(lst)} shehron ({", ".join(x["name"] for x in lst[:3])} aur aage) me AI aur WhatsApp automation: sales, marketing, operations, finance. ₹9,999 se.'
+    hu = SITE + u_state(st)
+    ld = [{'@context': 'https://schema.org', '@type': 'CollectionPage', '@id': hu, 'url': hu, 'name': t, 'description': d, 'inLanguage': 'hi-Latn', 'isPartOf': {'@type': 'WebSite', 'name': 'autenflo', 'url': SITE},
+           'mainEntity': {'@type': 'ItemList', 'itemListElement': [{'@type': 'ListItem', 'position': i, 'name': x['name'], 'url': SITE + u_city(x['slug'])} for i, x in enumerate(lst, 1)]}}]
+    return page(fp(u_state(st)), t, d, main, ld, crumbs=CR)
 
 def cities_index():
-    blocks = ''.join(f'<div class="wrap stsec"><h2><a href="/{k}/">{STATE_NAME[k]}</a></h2><div class="cgrid">' + ''.join(f'<a class="cc glass" href="/{x["state"]}/{x["slug"]}/"><div><h3>{x["name"]}</h3><p>Business ke liye AI ki power</p></div></a>' for x in cities if x['state'] == k) + '</div></div>' for k in states)
-    main = f'<main id="top" class="sec"><div class="wrap"><p class="crumbs"><a href="/">Home</a> / Shehar</p><span class="eyebrow">Aapka shehar</span><h1 class="h1s">Aapka shehar. Aapka business. {AI} ki power.</h1><p class="sub">Bihar, Purvanchal aur Jharkhand ke shehron me autenflo ka {AI} setup. Apna shehar chuniye.</p></div>{blocks}</main>'
-    return page('cities/index.html', 'AI & WhatsApp Automation in Bihar, UP, Jharkhand | autenflo', 'Bihar, Lucknow se Purvanchal aur Jharkhand ke 21 shehron me business ke liye AI aur WhatsApp automation: sales, marketing, operations, finance.', main)
+    CRI = [('Home', '/'), ('Cities', U_CITIES)]
+    blocks = ''.join(f'<div class="wrap stsec"><h2><a href="{u_state(k)}">{STATE_NAME[k]}</a></h2><div class="cgrid">' + ''.join(f'<a class="cc glass" href="{u_city(x["slug"])}"><div><h3>{x["name"]}</h3><p>Business ke liye AI ki power</p></div></a>' for x in cities if x['state'] == k) + '</div></div>' for k in states)
+    main = f'<main id="top" class="sec"><div class="wrap">{crumbs_html(CRI)}<span class="eyebrow">Aapka shehar</span><h1 class="h1s">{aih("Apna shehar chuniye, dekhiye AI aapke business me kya badlega.")}</h1><p class="sub">Bihar, Purvanchal aur Jharkhand ke shehron me autenflo ka {AI} setup. Apna shehar chuniye.</p></div>{blocks}</main>'
+    t = 'AI & WhatsApp Automation in Bihar, UP, Jharkhand | autenflo'
+    d = f'Bihar, Lucknow se Purvanchal aur Jharkhand ke {len(cities)} shehron me business ke liye AI aur WhatsApp automation: sales, marketing, operations, finance.'
+    cu = SITE + U_CITIES
+    ld = [{'@context': 'https://schema.org', '@type': 'CollectionPage', '@id': cu, 'url': cu, 'name': t, 'description': d, 'inLanguage': 'hi-Latn', 'isPartOf': {'@type': 'WebSite', 'name': 'autenflo', 'url': SITE},
+           'mainEntity': {'@type': 'ItemList', 'itemListElement': [{'@type': 'ListItem', 'position': i, 'name': x['name'], 'url': SITE + u_city(x['slug'])} for i, x in enumerate(cities, 1)]}}]
+    return page(fp(U_CITIES), t, d, main, ld, crumbs=CRI)
 
 # ---------- blog ----------
 BLOG_ART = ('<svg viewBox="0 0 400 220" role="img" aria-label="AI" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="220" fill="#3b7fd4"/><circle cx="350" cy="30" r="90" fill="#8a62d6" opacity=".45"/><circle cx="30" cy="210" r="70" fill="#8a62d6" opacity=".3"/>'
             '<g stroke="#fff" stroke-width="3" opacity=".7"><path d="M120 110L200 70L280 120L200 160ZM200 70V160M120 110L280 120"/></g><g fill="#fff"><circle cx="120" cy="110" r="10"/><circle cx="200" cy="70" r="12"/><circle cx="280" cy="120" r="10"/><circle cx="200" cy="160" r="10"/></g>'
             '<rect x="160" y="100" width="80" height="44" rx="12" fill="#17202A" opacity=".75"/><text x="200" y="131" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="800" font-size="24" fill="#fff">AI</text></svg>')
 POSTS = [
- {'slug': 'missed-enquiry-check-khud-kaise-karein', 'title': 'Pichhle 7 din ki missed enquiry khud kaise ginein (aur kitne ka mauka gaya)', 'cat': 'Sales', 'date': '2026-11-12', 'dlabel': '12 November 2026',
+ {'slug': 'missed-enquiry-check-khud-kaise-karein', 'title': '15 minute me pata karein kitni enquiry miss hui', 'cat': 'Sales', 'date': '2026-11-12', 'dlabel': '12 November 2026',
   'desc': '15 minute me apne WhatsApp ki enquiries gin kar dekhiye kitni late ya miss hui, aur us ka lagbhag rupaye me hisaab.',
   'body': """<p>Zyadatar owner ko lagta hai ki enquiry thodi hi miss hoti hai. Gin kar dekhne par aksar number badha nikalta hai. Ye check aap khud 15 minute me kar sakte hain.</p>
 <h2>Kadam 1: pichhle 7 din ki list banaiye</h2>
@@ -304,7 +313,7 @@ POSTS = [
 <blockquote>Late enquiry x conversion % x ek customer ki value = lagbhag itne ka mauka gaya.</blockquote>
 <p>Ye andaza hai, guarantee nahi. Par ye aapka apna data hai, aur isse saaf ho jata hai ki reply ki speed par kaam karna chahiye ya nahi.</p>
 <p>Khud nahi karna chahte? Hamari taraf se ye check free hai.</p>"""},
- {'slug': 'follow-up-1-3-7-din-ka-rule', 'title': 'Follow-up ka 1-3-7 din ka rule: ek enquiry order kaise banti hai', 'cat': 'Sales', 'date': '2026-11-12', 'dlabel': '12 November 2026',
+ {'slug': 'follow-up-1-3-7-din-ka-rule', 'title': 'Ek baar poochhna kaafi nahi: follow-up ka 1-3-7 tareeka', 'cat': 'Sales', 'date': '2026-11-12', 'dlabel': '12 November 2026',
   'desc': 'Enquiry ke baad 1, 3 aur 7 din par kya bhejein, bina customer ko pareshan kiye. Teen chhote message templates ke saath.',
   'body': """<p>Bahut si enquiry isliye order nahi banti kyunki ek hi reply ke baad baat khatam ho jati hai. Customer busy tha, bhool gaya, ya doosre se bhi puch raha tha.</p>
 <h2>Din 1: kaam ki yaad</h2>
@@ -315,7 +324,7 @@ POSTS = [
 <p>“[Naam] ji, agar abhi sahi samay nahi hai to koi baat nahi. Jab bhi zaroorat ho, yahin message kar dijiye.”</p>
 <ul><li>Har message chhota rakhiye.</li><li>Jo mana kare, use dobara message mat bhejiye.</li><li>Sirf unhe message bhejiye jinhone khud aapko likha ho.</li></ul>
 <p>Ye kaam roz haath se karna mushkil hota hai. Isiliye isse automate karna sabse pehla faayda deta hai.</p>"""},
- {'slug': 'whatsapp-par-60-second-me-reply', 'title': 'WhatsApp par customer ko 60 second me reply kaise dein', 'cat': 'AI', 'date': '2026-11-10', 'dlabel': '10 November 2026',
+ {'slug': 'whatsapp-par-60-second-me-reply', 'title': '60 second ka reply: customer rukta hai ya chala jaata hai', 'cat': 'AI', 'date': '2026-11-10', 'dlabel': '10 November 2026',
   'desc': 'Enquiry aate hi reply dene se order kyun badhte hain, aur chhote business ye kaam bina naya staff rakhe kaise kar sakte hain.',
   'body': """<p>Jo customer pehle reply paata hai, wahi aksar order bhi de deta hai. Phir bhi zyada tar business me enquiry ka reply tab jata hai jab staff ko yaad aata hai.</p>
 <h2>Reply late hone ki 3 wajah</h2>
@@ -327,40 +336,52 @@ POSTS = [
 ]
 
 def blog_pages():
-    urls = [SITE + '/blog/']
+    urls = [SITE + U_BLOG]
+    CRB = [('Home', '/'), ('Blog', U_BLOG)]
     cards = ''
     for p in POSTS:
-        url = f'{SITE}/blog/{p["slug"]}.html'; urls.append(url)
-        main = f'''<main id="top" class="sec"><div class="wrap"><p class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a></p>
+        url = SITE + u_post(p['slug']); urls.append(url)
+        CR = [('Home', '/'), ('Blog', U_BLOG), (p['title'], u_post(p['slug']))]
+        main = f'''<main id="top" class="sec"><div class="wrap">{crumbs_html(CR)}
 <article><div class="post-head"><div><p class="meta">{p['cat']} · {p['dlabel']}</p><h1 class="h1s">{E(p['title'])}</h1><p class="sub">{E(p['desc'])}</p></div><div class="post-art">{BLOG_ART}</div></div>
 <div class="prose">
 {p['body']}
 </div></article>
 <div class="glass fin2"><div><h2>Apne business ka free missed-enquiry check.</h2><p class="sub">WhatsApp par 15 minute baat karke dekhiye aapke liye kya sahi rahega.</p></div><a class="btn wab mag" href="{WA('Namaste autenflo, maine aapka blog padha. Mujhe free missed-enquiry check chahiye.')}">{WI}WhatsApp par baat karein</a></div></div></main>'''
-        ld = [{'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': p['title'], 'description': p['desc'], 'datePublished': p['date'], 'mainEntityOfPage': url,
-               'author': {'@type': 'Organization', 'name': 'autenflo'}, 'publisher': {'@type': 'Organization', 'name': 'autenflo', 'logo': {'@type': 'ImageObject', 'url': SITE + '/logo.png'}}}]
-        page(f'blog/{p["slug"]}.html', BLOG_SEO_TITLES.get(p['slug'], f'{p["title"]} | autenflo'), p['desc'], main, ld, og='article')
-        cards += f'<a class="bc glass" href="/blog/{p["slug"]}.html">{BLOG_ART}<div><p class="meta">{p["cat"]} · {p["dlabel"]}</p><h3>{E(p["title"])}</h3><p>{E(p["desc"])}</p></div></a>'
-    main = f'''<main id="top" class="sec"><div class="wrap"><p class="crumbs"><a href="/">Home</a> / Blog</p><span class="eyebrow">Blog</span><h1 class="h1s">Business ki baatein, {AI} ke saath.</h1><p class="sub">Practical articles: enquiry, follow-up, marketing aur payment ke aasaan tareeke.</p>
+        seo_t = BLOG_SEO_TITLES.get(p['slug'], f'{p["title"]} | autenflo')
+        ld = [{'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': p['title'], 'description': p['desc'], 'datePublished': p['date'], 'dateModified': p['date'], 'inLanguage': 'hi-Latn',
+               'image': [SITE + '/og.png'], 'url': url, 'mainEntityOfPage': {'@type': 'WebPage', '@id': url}, 'author': ORG,
+               'publisher': {'@type': 'Organization', 'name': 'autenflo', 'url': SITE, 'logo': {'@type': 'ImageObject', 'url': SITE + '/logo.png'}}}]
+        page(fp(u_post(p['slug'])), seo_t, p['desc'], main, ld, og='article', crumbs=CR)
+        cards += f'<a class="bc glass" href="{u_post(p["slug"])}">{BLOG_ART}<div><p class="meta">{p["cat"]} · {p["dlabel"]}</p><h3>{E(p["title"])}</h3><p>{E(p["desc"])}</p></div></a>'
+    main = f'''<main id="top" class="sec"><div class="wrap">{crumbs_html(CRB)}<span class="eyebrow">Blog</span><h1 class="h1s">Leads, follow-up aur reply: seedhi bhasha me.</h1><p class="sub">Practical articles: enquiry, follow-up, marketing aur payment ke aasaan tareeke.</p>
 <div class="bgrid">
 <!-- ✏️ NAYA ARTICLE: POSTS list me ek entry jodo (sabse upar), phir build_site.py dobara chalao -->
 {cards}
 </div></div></main>'''
-    page('blog/index.html', 'Business, AI aur Marketing Tips | autenflo Blog', 'Chhote business ke liye AI, WhatsApp, sales, marketing aur payment ke practical tareeke, Hindi me. Message templates aur checklists ke saath.', main)
+    bt, bd = 'Business, AI aur Marketing Tips | autenflo Blog', 'Chhote business ke liye AI, WhatsApp, sales, marketing aur payment ke practical tareeke, Hindi me. Message templates aur checklists ke saath.'
+    bl = SITE + U_BLOG
+    bld = [{'@context': 'https://schema.org', '@type': 'Blog', '@id': bl, 'url': bl, 'name': 'autenflo Blog', 'description': bd, 'inLanguage': 'hi-Latn', 'publisher': ORG,
+            'blogPost': [{'@type': 'BlogPosting', 'headline': p['title'], 'url': SITE + u_post(p['slug']), 'datePublished': p['date']} for p in POSTS]}]
+    page(fp(U_BLOG), bt, bd, main, bld, crumbs=CRB)
     return urls
 
 # ---------- trust pages: about, privacy, terms ----------
 def trust_pages():
     cta = f'<div class="glass fin2"><div><h2>Pehle free check, phir baat.</h2><p class="sub">15 minute me aapki pichhli 7 din ki enquiries gin kar batate hain.</p></div><a class="btn wab mag" href="{WA("Namaste autenflo, mujhe free missed-enquiry check chahiye")}">{WI}WhatsApp par baat karein</a></div>'
-    def shell(slug, eyebrow, h1, sub, body, title, desc):
-        main = f'<main id="top" class="sec"><div class="wrap"><p class="crumbs"><a href="/">Home</a> / {eyebrow}</p><span class="eyebrow">{eyebrow}</span><h1 class="h1s">{h1}</h1><p class="sub">{sub}</p><div class="prose">{body}</div>{cta}</div></main>'
-        page(f'{slug}/index.html', title, desc, main)
-        return f'{SITE}/{slug}/'
+    def shell(slug, eyebrow, h1, sub, body, title, desc, typ='WebPage'):
+        CRT = [('Home', '/'), (eyebrow, slug)]
+        main = f'<main id="top" class="sec"><div class="wrap">{crumbs_html(CRT)}<span class="eyebrow">{eyebrow}</span><h1 class="h1s">{h1}</h1><p class="sub">{sub}</p><div class="prose">{body}</div>{cta}</div></main>'
+        pu = SITE + slug
+        ld = [{'@context': 'https://schema.org', '@type': typ, '@id': pu, 'url': pu, 'name': title, 'description': desc, 'inLanguage': 'hi-Latn', 'isPartOf': {'@type': 'WebSite', 'name': 'autenflo', 'url': SITE}}]
+        if typ == 'AboutPage': ld[0]['about'] = ORG
+        page(fp(slug), title, desc, main, ld, crumbs=CRT)
+        return pu
     about = """<!-- ✏️ YAHAN FOUNDER KI PHOTO / 30 SECOND KA VIDEO, NAAM AUR KAHANI JODEIN. Trust ke liye ye sabse zaroori hai. -->
 <h2>Hum kaun hain</h2>
 <p>autenflo Patna, Bihar se chalta hai. Hum chhote aur beech ke business ke liye AI se WhatsApp ka reply, follow-up, payment reminder aur marketing ka kaam sambhalte hain, aur Hindi me, aapke saath baith kar setup karte hain.</p>
 <h2>Hum kaise kaam karte hain</h2>
-<ul><li><b>Pehle free check:</b> aapki pichhli 7 din ki enquiries gin kar batate hain kitni late ya miss hui.</li><li><b>Phir 30 din ka pilot:</b> ek kaam, ek tay metric, end me result report.</li><li><b>Saaf kharcha:</b> hamari fees, WhatsApp platform aur Meta ka kharcha, sab pehle likh kar dete hain.</li><li><b>Likhit agreement:</b> kaam ka scope, data kiska hai, aur band kaise karna hai.</li></ul>
+<ul><li><b>Pehle free check:</b> aapki pichhli 7 din ki enquiries gin kar batate hain kitni late ya miss hui.</li><li><b>Phir pehla kaam:</b> ek kaam, ek tay metric, end me result report.</li><li><b>Saaf kharcha:</b> hamari fees, WhatsApp platform aur Meta ka kharcha, sab pehle likh kar dete hain.</li><li><b>Likhit agreement:</b> kaam ka scope, data kiska hai, aur band kaise karna hai.</li></ul>
 <h2>AI aur insaan</h2>
 <p>Aapke customer ko pehle message me hi pata hota hai ki wo AI sahayak se baat kar raha hai. Wo insaan se baat maange to chat seedha aapko ya aapke staff ko jaati hai. Paisa, medical ya complaint jaise sawal AI khud nahi sambhalta.</p>
 <h2>Aap kaise sampark karein</h2>
@@ -370,7 +391,7 @@ def trust_pages():
 <h2>Hum kya jaankari lete hain</h2>
 <p>Website ke form me aap naam, WhatsApp number aur business ki jaankari dete hain. WhatsApp par aap jo message bhejte hain, wo bhi hum dekhte hain. Website par Google Analytics se anonymous visit data (kaun sa page, kitni der) liya jata hai.</p>
 <h2>Hum ise kyun use karte hain</h2>
-<p>Aapse baat karne, demo dikhane, pilot aur service dene, aur website behtar karne ke liye. Hum aapki jaankari bechte nahi.</p>
+<p>Aapse baat karne, demo dikhane, service dene, aur website behtar karne ke liye. Hum aapki jaankari bechte nahi.</p>
 <h2>Kin ke saath share hota hai</h2>
 <p>Sirf un tools ke saath jo kaam ke liye zaroori hain: WhatsApp API provider aur Meta, AI aur automation tools, Google Analytics, aur website form ka hosting provider. Client ke customers ka data client ke agreement ke hisaab se hi handle hota hai.</p>
 <h2>Kitne din rakhte hain</h2>
@@ -383,8 +404,6 @@ def trust_pages():
 <p>Antim update: 12 November 2026</p>
 <h2>Hamari service</h2>
 <p>autenflo WhatsApp par AI se reply, follow-up, reminder aur sambandhit kaam sambhalta hai, jaisa aapke plan ya agreement me likha ho. Naye kaam ya add-on alag se tay hote hain.</p>
-<h2>Pilot</h2>
-<p>Pilot 30 din ka hota hai: ek kaam, ek tay metric, aur end me result report. Pilot ka charge aur scope likhit tay hota hai.</p>
 <h2>Charges</h2>
 <p>Ek baar ka installation aur monthly charge plan ke hisaab se. WhatsApp API platform, Meta ke message charges, AI/API usage aur domain jaise third-party kharche aapke apne account se jaate hain aur hamare charge me shamil nahi hain.</p>
 <h2>AI aur uski seema</h2>
@@ -399,19 +418,37 @@ def trust_pages():
 <p>Hamari zimmedari us mahine ke monthly charge tak seemit rahegi. Ye shartein Bharat ke kanoon ke adheen hain. [Vivad ke liye adhikar-kshetra: Patna, Bihar.]</p>
 <h2>Sampark</h2>
 <p><a href="mailto:hello@autenflo.com">hello@autenflo.com</a></p>"""
-    return [shell('about', 'About', 'autenflo kaun hai aur kaise kaam karta hai', 'Seedhi baat: hum kya karte hain, kaise karte hain, aur kya nahi karte.', about, 'About autenflo | AI Back-office for Business, Patna, Bihar', 'autenflo Patna, Bihar se chalta hai: AI se sales, marketing, operations, finance aur WhatsApp customer service. Pehle free 15 minute ka check.'),
-            shell('privacy', 'Privacy', 'Privacy Policy', 'Aapki jaankari ka hum kya karte hain.', privacy, 'Privacy Policy | autenflo', 'autenflo kaun si jaankari leta hai, kyun, aur kin ke saath share karta hai.'),
-            shell('terms', 'Terms', 'Terms of Service', 'Service, charges, AI ki seema aur band karne ke niyam.', terms, 'Terms of Service | autenflo', 'autenflo ki service, pilot, charges, AI ki seema aur cancellation ke niyam.')]
+    return [shell(U_ABOUT, 'About', aih('Hum kaun hain: Hindi me, aapke saath baith kar AI lagate hain.'), 'Seedhi baat: hum kya karte hain, kaise karte hain, aur kya nahi karte.', about, 'About autenflo | AI Back-office for Business, Patna, Bihar', 'autenflo Patna, Bihar se chalta hai: AI se sales, marketing, operations, finance aur WhatsApp customer service. Pehle free 15 minute ka check.', 'AboutPage'),
+            shell(U_PRIVACY, 'Privacy', 'Privacy Policy: aapka data, saaf shabdon me', 'Aapki jaankari ka hum kya karte hain.', privacy, 'Privacy Policy | autenflo', 'autenflo kaun si jaankari leta hai, kyun, aur kin ke saath share karta hai.'),
+            shell(U_TERMS, 'Terms', 'Terms: kya milta hai, kya nahi, aur band kaise karein', 'Service, charges, AI ki seema aur band karne ke niyam.', terms, 'Terms of Service | autenflo', 'autenflo ki service, charges, AI ki seema aur cancellation ke niyam.')]
 
 # ---------- home + training ----------
+def _faq_ld(html):
+    out = []
+    for q, a in re.findall(r'<details><summary>(.*?)</summary><p>(.*?)</p></details>', html, re.S):
+        strip = lambda t: re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', t)).strip()
+        out.append({'@type': 'Question', 'name': strip(q), 'acceptedAnswer': {'@type': 'Answer', 'text': strip(a)}})
+    return {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': out} if out else None
+
 def home_training():
     home = R('home.html').replace('<div class="glass tz">', '<div class="glass tz"><div class="tzart">' + LEARN + '</div>')
-    ld = [{'@context': 'https://schema.org', '@type': 'Organization', 'name': 'autenflo', 'url': SITE, 'logo': SITE + '/logo.png', 'email': 'hello@autenflo.com', 'areaServed': ['Bihar', 'Uttar Pradesh', 'Jharkhand']}, {'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'autenflo', 'url': SITE}]
+    org = {'@context': 'https://schema.org', '@type': 'Organization', '@id': SITE + '/#organization', 'name': 'autenflo', 'url': SITE, 'logo': SITE + '/logo.png', 'email': 'hello@autenflo.com',
+           'description': 'AI se sales, marketing, operations, finance aur WhatsApp customer service: chhote aur beech ke business ke liye, Hindi me.',
+           'address': {'@type': 'PostalAddress', 'addressLocality': 'Patna', 'addressRegion': 'Bihar', 'addressCountry': 'IN'},
+           'contactPoint': [{'@type': 'ContactPoint', 'contactType': 'customer support', 'telephone': '+91-88490-31907', 'email': 'hello@autenflo.com', 'availableLanguage': ['Hindi', 'English']}],
+           'areaServed': [{'@type': 'State', 'name': 'Bihar'}, {'@type': 'State', 'name': 'Uttar Pradesh'}, {'@type': 'State', 'name': 'Jharkhand'}]}
+    site = {'@context': 'https://schema.org', '@type': 'WebSite', '@id': SITE + '/#website', 'name': 'autenflo', 'url': SITE, 'inLanguage': 'hi-Latn', 'publisher': {'@id': SITE + '/#organization'}}
+    ld = [org, site] + ([f] if (f := _faq_ld(home)) else [])
     page('index.html', 'autenflo: AI & WhatsApp Automation for Bihar, UP, Jharkhand', 'Aapke business ka AI back-office: sales, marketing, operations aur finance, plus WhatsApp par 24x7 reply. Pehle free 15 minute ka missed-enquiry check.', home, ld, ('/assets/home.js',))
-    tr = R('training.html').replace('<div class="hv">', '<div class="hv"><div class="tart">' + LEARN + '</div>')
-    page('ai-training/index.html', 'AI Training for Schools, Colleges & ITIs | autenflo', 'Daily 1 ghante ki live online AI class: Schools ₹6,999, Colleges ₹9,999, Others ₹8,999 per month. ITIs, workplaces aur institutions ke liye.', tr,
-         [{'@context': 'https://schema.org', '@type': 'Service', 'name': 'AI Training for Schools, Colleges and Institutions', 'provider': {'@type': 'Organization', 'name': 'autenflo', 'url': SITE}}])
-    return [SITE + '/', SITE + '/ai-training/']
+    CRT = [('Home', '/'), ('AI Training', U_TRAIN)]
+    tr = R('training.html').replace('<div class="hv">', '<div class="hv"><div class="tart">' + LEARN + '</div>').replace('<div class="hl">', '<div class="hl">' + crumbs_html(CRT), 1)
+    tu = SITE + U_TRAIN
+    tld = [{'@context': 'https://schema.org', '@type': 'Service', 'name': 'AI Training for Schools, Colleges and Institutions', 'url': tu, 'serviceType': 'Live online AI training', 'provider': ORG,
+            'areaServed': {'@type': 'Country', 'name': 'India'},
+            'description': 'Daily 1 ghante ki live online AI class, Hindi me, schools, colleges, ITIs, workplaces aur institutions ke liye.',
+            'offers': [{'@type': 'Offer', 'name': n, 'price': pr, 'priceCurrency': 'INR', 'description': 'per month', 'url': tu} for n, pr in (('Schools', '6999'), ('Colleges', '9999'), ('Others', '8999'))]}]
+    page(fp(U_TRAIN), 'AI Training for Schools, Colleges & ITIs | autenflo', 'Daily 1 ghante ki live online AI class: Schools ₹6,999, Colleges ₹9,999, Others ₹8,999 per month. ITIs, workplaces aur institutions ke liye.', tr, tld, crumbs=CRT)
+    return [SITE + '/', tu]
 
 if __name__ == '__main__':
     if os.path.exists(OUT): shutil.rmtree(OUT)
@@ -424,6 +461,22 @@ if __name__ == '__main__':
     skip = {SITE + '/' + p.replace('index.html', '').lstrip('/') for p in NOINDEX}
     urls = [u for u in urls if u not in skip]
     write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>' for u in urls) + '</urlset>')
-    write('robots.txt', f'User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n')
-    write('README.txt', 'logo.png naam se apna logo is folder ke root me (index.html ke saath) daalo.\nSabhi city pages aur state hub pages Google me index hote hain aur sitemap.xml me hain.\nAbout, Privacy, Terms pages me [ ] aur HTML comments wali jagah bhariye aur vakeel se confirm karwayein.\n')
-    print(len(urls), 'pages')
+    write('robots.txt', f'User-agent: *\nAllow: /\nDisallow: /404.html\nSitemap: {SITE}/sitemap.xml\n')
+    # 404 page
+    nf = f'<main id="top" class="sec"><div class="wrap"><span class="eyebrow">404</span><h1 class="h1s">Ye page nahi mila.</h1><p class="sub">Link purana ho sakta hai. Home par jaayein ya apna shehar chuniye.</p><div class="cta"><a class="btn wab mag" href="/">Home par jaayein</a><a class="btn ghost mag" href="{U_CITIES}">Sabhi cities</a></div></div></main>'
+    page('404.html', 'Page nahi mila | autenflo', 'Ye page nahi mila. autenflo ke home page ya cities page par jaayein.', nf, noindex=True)
+    # ---- purane URL -> naye URL (301) ----
+    OLD = [('/cities/', U_CITIES), ('/ai-training/', U_TRAIN), ('/about/', U_ABOUT), ('/privacy/', U_PRIVACY), ('/terms/', U_TERMS)]
+    OLD += [(f'/{k}/', u_state(k)) for k in states] + [(f'/{c["state"]}/{c["slug"]}/', u_city(c['slug'])) for c in cities]
+    OLDF = [(f'/blog/{o}.html', u_post(o)) for o in POST_SLUG]
+    red = ['# 301 redirects: purane URL -> naye SEO URL (Netlify / Cloudflare Pages format)']
+    for o, n in OLD: red += [f'{o} {n} 301', f'{o}index.html {n} 301']
+    for o, n in OLDF: red += [f'{o} {n} 301', f'{o[:-5]} {n} 301']
+    write('_redirects', '\n'.join(red) + '\n')
+    ht = ['# 301 redirects (Apache). Agar aap Netlify/Cloudflare Pages par ho to ye file ignore hoti hai, _redirects kaam karti hai.', 'ErrorDocument 404 /404.html', 'Options -Indexes', '']
+    for o, n in OLD: ht.append(f'RedirectMatch 301 ^{o}(index\\.html)?$ {n}')
+    for o, n in OLDF: ht.append(f'RedirectMatch 301 ^{o.replace(".", chr(92) + ".")}$ {n}'); ht.append(f'RedirectMatch 301 ^{o[:-5]}/?$ {n}')
+    write('.htaccess', '\n'.join(ht) + '\n')
+    open(os.path.join(HERE, 'redirect-map.csv'), 'w', encoding='utf-8').write('old_url,new_url\n' + ''.join(f'{SITE}{o},{SITE}{n}\n' for o, n in OLD + OLDF))
+    write('README.txt', 'logo.png naam se apna logo is folder ke root me (index.html ke saath) daalo.\nSabhi city pages aur state hub pages Google me index hote hain aur sitemap.xml me hain.\nAbout, Privacy, Terms pages me [ ] aur HTML comments wali jagah bhariye aur vakeel se confirm karwayein.\nURL badle hain: purane URL _redirects (Netlify/Cloudflare Pages) ya .htaccess (Apache) se 301 hote hain. Upload ke baad Search Console me naya sitemap.xml submit karein.\n')
+    print(len(urls), 'pages,', len(OLD) + len(OLDF), 'redirects')
