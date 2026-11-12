@@ -98,31 +98,30 @@ def city_seo(slug):
 
 # ---------- city page H1: home style ("... ka poora kaam, / AI ke saath. ..."), har shehar ka apna ----------
 CITY_H1 = {
- 'patna': ('Patna ke coaching, clinic aur dukaan ka poora kaam,', 'Raat 11 baje bhi reply.'),
- 'muzaffarpur': ('Muzaffarpur ke litchi aur wholesale ka poora kaam,', 'Season ki bheed me bhi.'),
- 'gaya': ('Gaya ke dharamshala aur cab ka poora kaam,', 'Pitru Paksha ki bheed me bhi.'),
- 'purnia': ('Purnia ke vyapar aur patients ka poora kaam,', 'Door ke gaon se bhi turant reply.'),
- 'bhagalpur': ('Bhagalpur ke silk aur wholesale ka poora kaam,', 'Order se dispatch tak.'),
- 'arrah': ('Arrah ke dukaan aur coaching ka poora kaam,', 'Har lead ka follow-up pakka.'),
- 'bihar-sharif': ('Bihar Sharif ke hardware aur coaching ka poora kaam,', 'Quotation se payment tak.'),
- 'darbhanga': ('Darbhanga ke makhana aur hospital ka poora kaam,', 'Order se appointment tak.'),
- 'lucknow': ('Lucknow ke clinic aur restaurant ka poora kaam,', 'Pehle reply, pehla customer.'),
- 'varanasi': ('Varanasi ke hotel aur saree wholesale ka poora kaam,', 'Kai bhashaon me, kai channels se.'),
- 'prayagraj': ('Prayagraj ke coaching aur hotel ka poora kaam,', 'Exam se mela season tak.'),
- 'gorakhpur': ('Gorakhpur ke clinic aur hotel ka poora kaam,', 'Door se aaye customer ko turant jawab.'),
- 'ayodhya': ('Ayodhya ke homestay aur tours ka poora kaam,', 'Yatri boom me bhi.'),
- 'mirzapur': ('Mirzapur ke carpet aur hardware ka poora kaam,', 'Catalogue se dispatch tak.'),
- 'jaunpur': ('Jaunpur ke coaching aur garment dukaan ka poora kaam,', 'Admission se purchase tak.'),
- 'azamgarh': ('Azamgarh ke school aur jewellery ka poora kaam,', 'Har parent ko turant jawab.'),
- 'ranchi': ('Ranchi ke real estate aur clinic ka poora kaam,', 'Lead se appointment tak.'),
- 'jamshedpur': ('Jamshedpur ke vendor aur service centre ka poora kaam,', 'Quotation se follow-up tak.'),
- 'dhanbad': ('Dhanbad ke vendor aur hardware ka poora kaam,', 'Coal-belt ki raftaar se.'),
- 'bokaro': ('Bokaro Steel City ke vendor aur school ka poora kaam,', 'Quotation se admission tak.'),
- 'deoghar': ('Deoghar ke hotel aur parcel ka poora kaam,', 'Shravani Mela ki bheed me bhi.'),
+ 'patna': 'Raat 11 baje bhi.',
+ 'muzaffarpur': 'Litchi season ki raftaar.',
+ 'gaya': 'Pitru Paksha me bhi.',
+ 'purnia': 'Door ke gaon tak.',
+ 'bhagalpur': 'Silk ke order, seedha dispatch.',
+ 'arrah': 'Har lead pakka.',
+ 'bihar-sharif': 'Quotation se payment tak.',
+ 'darbhanga': 'Order bhi, appointment bhi.',
+ 'lucknow': 'Pehle reply, pehla customer.',
+ 'varanasi': 'Har bhasha, har channel.',
+ 'prayagraj': 'Exam se mela tak.',
+ 'gorakhpur': 'Har customer ko turant.',
+ 'ayodhya': 'Yatri boom ke liye taiyaar.',
+ 'mirzapur': 'Catalogue, rate, dispatch.',
+ 'jaunpur': 'Admission bhi, sale bhi.',
+ 'azamgarh': 'Har parent ko jawab.',
+ 'ranchi': 'Har lead, har appointment.',
+ 'jamshedpur': 'Vendor se service tak.',
+ 'dhanbad': 'Coal-belt ki raftaar.',
+ 'bokaro': 'Steel city ki raftaar.',
+ 'deoghar': 'Shravani Mela me bhi.',
 }
 def city_h1(slug):
-    l1, l2 = CITY_H1[slug]
-    return f'{E(l1)} <br>{AI} ke saath. {E(l2)}'
+    return f'{E(CITY_SEO[slug][0])} ka poora kaam, <br>{AI} ke saath. {E(CITY_H1[slug])}'
 
 def page(path, title, desc, main, jsonld=(), extra_js=(), og='website', noindex=False):
     if noindex: NOINDEX.add(path)
@@ -140,7 +139,7 @@ def page(path, title, desc, main, jsonld=(), extra_js=(), og='website', noindex=
             '<script async src="https://www.googletagmanager.com/gtag/js?id=G-6012ZHG9SS"></script>'
             "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-6012ZHG9SS');</script></head>\n"
             f'<body>{SPRITE}<div id="pre"><img src="/logo.png" alt="autenflo"><i></i></div><div class="pbar"></div>{BG}'
-            '<a class="ann" href="/#results">🧪 Pehle 15 minute ka <b>free missed-enquiry check</b>, phir 30 din ka pilot →</a>'
+            '<a class="ann" href="/#plans">🎁 Startups ke liye khaas offer: har plan ke saath <b>FREE Branding Consulting</b> →</a>'
             f'{HEADER}\n{main}\n{FOOTER}{FAB}{js}</body></html>')
     depth = path.count('/')
     pre = '../' * depth
@@ -226,7 +225,7 @@ def city_page(c):
     msg = WA(f'Namaste autenflo, main {n} se hu. Mujhe apne business ko AI ki power chahiye.')
     near = [x for x in cities if x['state'] == st and x['slug'] != c['slug']][:4]
     faq = faq_list(n)
-    offer = ('<div class="offer glass"><span class="gi">🎁</span><div><b>Bihar ke Startups ke liye khaas offer</b><p>Har plan ke saath <strong>FREE Branding Consulting</strong>: aapka brand, positioning aur pehchaan, shuru se sahi.</p></div></div>' if st == 'bihar' else '')
+    offer = ('<div class="offer glass"><span class="gi">🎁</span><div><b>Startups ke liye khaas offer</b><p>Har plan ke saath <strong>FREE Branding Consulting</strong>: aapka brand, positioning aur pehchaan, shuru se sahi.</p></div></div>' if st == 'bihar' else '')
     prob = ''.join(f'<article class="glass bz"><span class="em">{e}</span><h3>{t}</h3><p class="fx1">{d}</p></article>' for e, t, d in PROBLEMS)
     steps = ''.join(f'<div class="st on"><span class="dot">{i}</span><div><h3>{h}</h3><p>{p}</p></div></div>' for i, (h, p) in enumerate(STEPS, 1))
     plans = ''.join('<article class="glass pad pl"><h3>%s</h3><p class="for">%s</p><p><small>One-time installation</small><br><strong>₹%s</strong></p><p><small>Har mahine</small><br><strong>₹%s</strong></p><ul class="fr">%s</ul></article>' % (a, b, c1, d, ''.join(f'<li>{x}</li>' for x in fr)) for a, b, c1, d, fr in PLANS)
@@ -256,7 +255,7 @@ def city_page(c):
     pricing = PRICING.replace('text=Namaste%20autenflo%2C%20mujhe%20', 'text=' + U.quote(f'Namaste autenflo, main {n} se hu. Mujhe '))
     sol = ''.join(f'<article class="glass bz"><span class="tg2">{t}</span><h3>{h}</h3><ul class="sl">' + ''.join(f'<li>{x}</li>' for x in li) + '</ul>' + ('<p style="margin-top:14px"><a class="ul" href="/ai-training/">Plans dekhein →</a></p>' if t.startswith('🎓') else '') + '</article>' for t, h, li in SOLUTIONS)
     t1, t2 = d['biz'][0][0], d['biz'][1][0]
-    offer = ('<div class="offer glass"><span class="gi">🎁</span><div><b>Bihar ke Startups ke liye khaas offer</b><p>Har plan ke saath <strong>FREE Branding Consulting</strong>.</p></div></div>' if st == 'bihar' else '')
+    offer = ('<div class="offer glass"><span class="gi">🎁</span><div><b>Startups ke liye khaas offer</b><p>Har plan ke saath <strong>FREE Branding Consulting</strong>.</p></div></div>' if st == 'bihar' else '')
     cards = ''.join(f'<article class="glass bz"><span class="em">{e}</span><h3>{E(t)}</h3><p class="fx1"><b>Problem:</b> {E(l)}</p><p class="fx1"><b>autenflo:</b> {E(f)}</p></article>' for (t, l, f), e in zip(d['biz'], ('🏪', '📲', '🧾')))
     chat = f'<div class="chat"><div class="cb c">{E(d["chat"][0])}</div><div class="cb b">{E(d["chat"][1])}</div></div>'
     areas = ''.join(f'<span>{E(a)}</span>' for a in d['areas'])
@@ -400,7 +399,7 @@ def trust_pages():
 <p>Hamari zimmedari us mahine ke monthly charge tak seemit rahegi. Ye shartein Bharat ke kanoon ke adheen hain. [Vivad ke liye adhikar-kshetra: Patna, Bihar.]</p>
 <h2>Sampark</h2>
 <p><a href="mailto:hello@autenflo.com">hello@autenflo.com</a></p>"""
-    return [shell('about', 'About', 'autenflo kaun hai aur kaise kaam karta hai', 'Seedhi baat: hum kya karte hain, kaise karte hain, aur kya nahi karte.', about, 'About autenflo | AI Back-office for Business, Patna, Bihar', 'autenflo Patna, Bihar se chalta hai: AI se sales, marketing, operations, finance aur WhatsApp customer service. Pehle free check, phir 30 din ka pilot.'),
+    return [shell('about', 'About', 'autenflo kaun hai aur kaise kaam karta hai', 'Seedhi baat: hum kya karte hain, kaise karte hain, aur kya nahi karte.', about, 'About autenflo | AI Back-office for Business, Patna, Bihar', 'autenflo Patna, Bihar se chalta hai: AI se sales, marketing, operations, finance aur WhatsApp customer service. Pehle free 15 minute ka check.'),
             shell('privacy', 'Privacy', 'Privacy Policy', 'Aapki jaankari ka hum kya karte hain.', privacy, 'Privacy Policy | autenflo', 'autenflo kaun si jaankari leta hai, kyun, aur kin ke saath share karta hai.'),
             shell('terms', 'Terms', 'Terms of Service', 'Service, charges, AI ki seema aur band karne ke niyam.', terms, 'Terms of Service | autenflo', 'autenflo ki service, pilot, charges, AI ki seema aur cancellation ke niyam.')]
 
