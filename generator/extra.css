@@ -53,3 +53,5 @@ footer.ft{padding:56px 0 110px;text-align:left;color:var(--mut)}
 @media(max-width:1000px){.ft .fgrid{grid-template-columns:repeat(3,1fr)}.ft .fb0{grid-column:1/-1}.ft .fb0 p{max-width:none}}
 @media(max-width:560px){.ft .fgrid{grid-template-columns:repeat(2,1fr)}.ft .fcta{padding:22px}.ft .fbot{flex-direction:column}}
 .ft ul a{text-decoration:none}
+
+html,body{overflow-x:clip}
