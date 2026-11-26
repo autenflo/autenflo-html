@@ -1,0 +1,318 @@
+# autenflo
+
+> autenflo ek AI back-office service hai (Mishratola, Gannipur, Muzaffarpur, Bihar): WhatsApp par enquiry ka 60 second me reply, 1-3-7 din follow-up, marketing aur social media, payment reminder aur data entry. Bihar, Uttar Pradesh aur Jharkhand ke businesses ke liye. Setup Rs 14,999 se, monthly Rs 5,999 se. Contact: hello@autenflo.com, +91 88490 31907. Instagram: https://www.instagram.com/autenfloai/ LinkedIn: https://www.linkedin.com/company/autenflo/
+
+## D2C & Retail (https://autenflo.com/ai-automation-for-d2c-and-retail/)
+
+Shaadi ka season hai. Instagram par 40 DM, WhatsApp par 30 message aur counter par 10 customer: "ye kitne ka hai", "COD hoga?", "parcel kahan hai?". Jis customer ko jawab pehle mila, order usi ka. Jise der se mila, wo agle seller ke paas chala gaya.
+
+### Problems and how autenflo solves them
+
+- Photo bhejkar price poochne walon ko reply der se: Customer ne reel ya photo dekhkar poochha "ye kitne ka hai, size M hai?". Staff packing me laga tha, jawab aadhe ghante baad gaya. Tab tak customer kisi aur se khareed chuka tha. autenflo: Catalogue, price, size aur delivery ka jawab turant jata hai. Jo customer serious lage, uska alert seedha aapko aata hai.
+- Order chat me, payment screenshot me, entry register me: Order WhatsApp par aata hai, payment ka screenshot alag chat me, aur entry register me. Din ke end me milana padta hai aur kuch na kuch chhoot jata hai. autenflo: Order apne aap record hota hai, payment link ya UPI confirmation ka status update hota hai aur invoice customer ko chala jata hai.
+- COD order wapas aa jata hai, parcel kahan hai ke calls: Bina confirm kiye bheja gaya COD order aksar wapas aa jata hai. Upar se roz "mera parcel kahan hai" ke calls, jinka jawab dene me staff ka time jata hai. autenflo: Dispatch se pehle customer se WhatsApp par address aur order confirm hota hai, aur parcel ka status customer ko apne aap milta hai. Wapas aane wale orders ka risk kam hota hai.
+- Purane customers wapas nahi aate: Jis customer ne pichhli shaadi ya Diwali me khareedari ki thi, usse dobara baat karne ka koi tareeka nahi. Wo bhool jata hai ki aapki dukaan ya brand hai. autenflo: Festival, birthday aur anniversary par offer message khud jata hai. Jo cheez khatam hoti hai (jaise masala, makhana, sattu), uska reorder reminder bhi jata hai.
+- EMI, udhaar aur warranty ka reminder manually: Kis ki kist kab aani hai ya kis mobile ki service due hai, ye diary me likha hai. Reminder dena roz ka kaam hai aur kuch na kuch hamesha chhoot jata hai. autenflo: Due date se pehle tameez ka reminder jata hai, payment aate hi status update hota hai, aur warranty ya service due par customer ko apne aap yaad dilaya jata hai.
+- Stock ka hisaab register me, content roz sochna: Kaun sa size ya model khatam hai, ye shaam ko register dekh kar pata chalta hai. Upar se roz sochna ki aaj kya post karein, aur page hafton tak purana dikhta hai. autenflo: Stock aur sales apne aap update hote hain, low stock par alert aata hai. Naye collection par content calendar, Hindi captions aur auto-posting ka plan taiyar milta hai.
+
+### FAQ
+
+**D2C aur retail ke liye AI WhatsApp automation kya karta hai?**
+Ye catalogue, price aur size turant bhejta hai, order aur payment ka record rakhta hai, COD confirm karta hai, parcel ka status batata hai, aur festival ya reorder offers chalata hai. Sab aapke hi WhatsApp number par hota hai.
+
+**Kya chhoti kapde, jewellery ya mobile ki dukaan ke liye bhi chalega?**
+Haan. Chhoti dukaan me staff kam hota hai, isliye counter ki bheed ke beech WhatsApp ka jawab sabse pehle chhootta hai. Automation yahi kaam sambhal leta hai.
+
+**Mera business Instagram par chalta hai, kya wo bhi judega?**
+Aksar haan. Instagram ya Facebook se aane wale customer ko WhatsApp par laakar wahan jawab, order aur follow-up automate hota hai. Kya-kya judega, ye free audit me aapke setup dekhkar bata dete hain.
+
+**COD ke fake ya wapas aane wale orders ka kya hoga?**
+Dispatch se pehle customer se address aur order WhatsApp par confirm karwaya jata hai. Isse wapas aane wale orders ka risk kam hota hai, par poori guarantee koi nahi de sakta.
+
+**Jewellery me rate roz badalta hai, uska kya?**
+Aap aaj ka rate ek baar update karte ho aur AI usi se jawab deta hai. Purana rate kisi customer ko nahi jata.
+
+**Customer photo bheje to AI kya karega?**
+Wo customer ko milta-julta design aur price dikhata hai, aur jahan sahi lage wahan aapko alert deta hai. Aap batate ho kya khud sambhalna hai.
+
+**Kya EMI aur udhaar ke reminder se customer naraaz honge?**
+Reminder tameez se aur due date ke aas-paas jata hai. Payment aate hi reminder band ho jata hai, aur aap tay karte ho kitni baar jaye.
+
+**Kya ye mere billing software ke saath chalega?**
+Aksar haan, kyunki ye WhatsApp aur aapki sheet ya software ke beech kaam karta hai. Pehle hum aapka process dekhte hain, phir batate hain kaise judega.
+
+**Purane customer ka data kaise rakha jata hai?**
+Naam, number aur purani khareed aapke apne account me rehti hai aur sirf aapke kaam ke liye use hoti hai. Hum privacy policy me likhe niyam follow karte hain.
+
+**Shuruaat kitne se hoti hai?**
+Launch plan ki one-time installation 14,999 rupaye aur monthly charge 5,999 rupaye se shuru hota hai. WhatsApp, API aur AI usage ka kharcha aapke apne account se jata hai.
+
+## Coaching, Tuition aur Schools (https://autenflo.com/ai-automation-for-coaching-institutes/)
+
+April se July ke beech ek coaching ke paas 200 enquiries aati hain aur staff 3 hota hai. Jo parents ko pehle jawab deta hai, admission usi ka hota hai. autenflo wo jawab 60 second me deta hai, raat 11 baje bhi.
+
+### Problems and how autenflo solves them
+
+- Enquiry register me, jawab kal: Parents ne raat 10 baje fees poochi. Reception subah 9 baje khulta hai. Tab tak parents 2 aur coaching se baat kar chuke hote hain. Enquiry diary me likhne wala bhi roz ek insaan chahiye. autenflo: AI turant batch, fees, timing aur demo slot batata hai. Har enquiry ek jagah naam, class, area aur source ke saath apne aap record hoti hai.
+- Demo class ke baad follow-up chhoot jata hai: Demo me 30 bachche aaye, admission 8 ne liya. Baaki 22 ko kisne dobara call kiya, kisi ko pata nahi. Yahi sabse bada admission leak hai. autenflo: Demo ke 1, 3 aur 7 din baad parents ko alag-alag message jata hai. Jo parent reply kare, uska alert counsellor ko seedha.
+- Fees ke liye parents ko ek-ek call: Mahine ki 5 tarikh ke baad staff ghanto phone par lagta hai. Parents ko bura bhi lagta hai, aur kuch call uthate hi nahi. autenflo: Due date se 3 din pehle tameez wala reminder, due ke din dobara, aur payment aate hi status update. Staff sirf unko call kare jo 7 din baad bhi baaki hain.
+- Absent bachche ka pata parents ko late chalta hai: Bachcha coaching ke naam par ghar se nikla aur class me gaya hi nahi. Parents ko hafte baad pata chalta hai, tab tak trust toot chuka hota hai. autenflo: Attendance lagte hi absent bachche ke parents ko message. Hafte bhar me 3 absent hone par teacher ko alag alert.
+- Test result aur report card ka data entry: Har test ke baad marks excel me, phir parents ko ek-ek karke bhejna. Ek batch ka kaam 2 din le leta hai. autenflo: Marks se report auto banti hai aur parents ko unke bachche ki hi report jati hai, topper aur weak topic ke saath.
+- Admission form aur documents ki typing: Form, marksheet, ID aur photo alag-alag aate hain. Kuch na kuch hamesha adhura rehta hai aur admission atak jata hai. autenflo: Form se data auto entry, aur kaun sa document baaki hai uski checklist parents ko khud jati hai.
+
+### FAQ
+
+**Coaching ke liye AI WhatsApp automation kya karta hai?**
+Ye parents ki enquiry ka turant jawab deta hai, demo class book karta hai, 1-3-7 din follow-up bhejta hai, fees ka reminder deta hai aur absent bachche ki khabar parents ko deta hai. Ye sab aapke hi WhatsApp number par hota hai.
+
+**Kya chhote tuition center ko bhi iski zaroorat hai?**
+Haan. Jahan roz 5 se 10 enquiry bhi aati hain, wahan ek bhi chhootne par admission jata hai. Chhote center me staff kam hota hai, isliye automation ka fayda aur zyada dikhta hai.
+
+**Admission season me ek saath 200 enquiry aaye to kya hoga?**
+AI ek saath kitni bhi chats sambhal leta hai. Har parent ko batch aur fees ka sahi jawab milta hai, aur jo parent seriously interested ho uska alert counsellor ko jata hai.
+
+**Kya AI parents se Hindi me baat karega?**
+Haan, Hindi me, aur zaroorat par English me. Bhasha aapke center ke andaaz ke hisaab se rakhi jati hai, taaki parents ko rojana jaisi baat lage.
+
+**Fees reminder se parents naraaz to nahi honge?**
+Reminder tameez se likha jata hai aur sirf due date ke aas-paas jata hai. Aap batate ho kitni baar aur kis tone me, aur payment aate hi reminder band ho jata hai.
+
+**Kya demo class ke baad follow-up khud hoga?**
+Haan. Demo ke 1, 3 aur 7 din baad alag message jata hai. Jo parent jawab de, wo hot lead banta hai aur counsellor ko turant alert milta hai.
+
+**School ke liye bhi ye kaam karega?**
+Haan. School me admission enquiry, fees reminder, PTM ki soochna, holiday notice aur attendance alert sabse zyada kaam aate hain. Teacher training ke liye alag AI training page bhi hai.
+
+**Setup me kitna time lagta hai aur kya office aana padega?**
+Setup online hota hai. Aap batch, fees aur timing batate ho, aur hum use AI me daalte hain. Aam taur par kuch hi din me chalu ho jata hai.
+
+**Parents ka data surakshit rahega?**
+Data aapke apne WhatsApp aur account me rehta hai aur sirf aapke kaam ke liye use hota hai. Hum privacy policy me likhe niyam follow karte hain.
+
+**Shuruaat kitne se hoti hai?**
+Launch plan ki one-time installation 14,999 rupaye aur monthly charge 5,999 rupaye se shuru hota hai. WhatsApp, API aur AI usage ka kharcha aapke apne account se jata hai.
+
+## Clinics, Hospitals aur Diagnostics (https://autenflo.com/ai-automation-for-clinics-and-hospitals/)
+
+Reception par ek insaan, roz 50 appointment calls aur register me entry. Is beech jo patient khada hai wo intezaar karta hai. autenflo booking, reminder aur report ka kaam WhatsApp par khud kar deta hai.
+
+### Problems and how autenflo solves them
+
+- Appointment ke liye roz calls, phir register me entry: Phone baar-baar bajta hai, doctor ki timing poochi jati hai, aur slot register me likha jata hai. Do log ek hi slot maang lete hain aur jhagda reception par hota hai. autenflo: Patient WhatsApp par doctor aur din chunta hai, khali slot dikhta hai aur booking calendar me apne aap darj hoti hai. Reception sirf walk-in dekhta hai.
+- No-show: khali slot, doctor ka ghanta barbaad: Roz 4 se 6 patient aate hi nahi. Doctor baithe rehte hain aur dusre patient bahar intezaar karte hain, kyunki unko pata hi nahi tha slot khali hai. autenflo: Appointment se ek din pehle aur 2 ghante pehle reminder jata hai. Aa na paye to patient ek tap me slot badal sakta hai.
+- Patient ka record alag-alag register ya files me: Purani parchi kisi ke paas nahi milti. Patient dobara aaye to sab kuch shuru se poochna padta hai. autenflo: Har patient ki visit history, last dawai aur next date ek jagah rehti hai, jo sirf aapki team dekh paati hai.
+- Report ready hone par ek-ek ko batana: Diagnostic center me report kab ready hogi, ye poochne ke liye roz sau call aate hain. Staff report dene se zyada jawab dene me lagta hai. autenflo: Report ready hote hi patient ko alert jata hai ki kab aur kahan se leni hai. Status poochne wale call kam ho jate hain.
+- Billing aur collection ka manual hisaab: Shaam ko kitna aaya, kitna baaki, kaun si bill pending hai, ye ginne me ghanta lagta hai. autenflo: Bill auto banta hai aur roz shaam ko collection aur baaki ka summary owner ko WhatsApp par aa jata hai.
+- Follow-up visit aur dawai refill yaad dilana: Patient 10 din baad dikhane aane wala tha, bhool gaya. Kai bimariyon me ye dobara aana hi ilaaj ka hissa hota hai. autenflo: Doctor ne jo follow-up date likhi, uske hisaab se reminder jata hai. Dawai khatam hone se pehle refill reminder bhi.
+
+### FAQ
+
+**Clinic ke liye AI WhatsApp automation kya karta hai?**
+Ye appointment book karta hai, doctor ki timing batata hai, reminder bhejta hai, report ready hone par alert deta hai aur follow-up yaad dilata hai. Ye sab clinic ke hi WhatsApp number par hota hai.
+
+**Kya AI doctor ki jagah bimari ya dawai bata dega?**
+Nahi. AI sirf appointment aur jaankari ka kaam karta hai. Sehat se jude sawal par wo patient ko seedha aapki team ya doctor tak pahunchata hai.
+
+**Appointment reminder se no-show kitna kam hota hai?**
+Result clinic ke hisaab se alag hota hai, isliye hum koi pakka number nahi dete. Reminder aur reschedule ka option milne par zyadatar clinics me khali slot kam hote dikhte hain.
+
+**Kya chhote clinic aur single doctor ke liye ye theek hai?**
+Haan. Single doctor ke clinic me reception par aksar ek hi insaan hota hai, isliye call aur register ka kaam sabse zyada dikhta hai aur automation se sabse zyada raahat milti hai.
+
+**Diagnostic center ke liye ye kaise kaam aata hai?**
+Report ready hone ka alert, test ka rate aur timing ka jawab, aur ghar se sample ki booking jaise kaam apne aap hote hain. Isse report poochne wale calls kaafi kam ho jate hain.
+
+**Patient ki jaankari ka data surakshit rahega?**
+Data aapke apne account me rehta hai aur sirf aapke kaam ke liye use hota hai. Hum kisi ka health data kisi aur ko nahi dete. Details privacy policy me hain.
+
+**Kya patient AI se baat karne par naraaz nahi hoga?**
+Patient ko sirf tez jawab chahiye hota hai. Jahan insaan ki zaroorat hoti hai, wahan baat seedha aapke staff ko forward ho jati hai. Aap batate ho kya AI sambhale aur kya nahi.
+
+**Kya ye hamare purane billing software ke saath chalega?**
+Aksar haan, kyunki ye WhatsApp aur aapki sheet ya software ke beech kaam karta hai. Pehle hum aapka current process dekhte hain, phir batate hain kaise judega.
+
+**Kya Hindi me aur gaon se aaye patients ke liye chalega?**
+Haan. Jawab saaf aur aasaan Hindi me hota hai. Gaon se aaye patient ko timing, jagah aur kaun sa kagaz lana hai, ye sab ek message me mil jata hai.
+
+**Shuruaat kitne se hoti hai?**
+Launch plan ki one-time installation 14,999 rupaye aur monthly charge 5,999 rupaye se shuru hota hai. WhatsApp, API aur AI usage ka kharcha aapke apne account se jata hai.
+
+## Real Estate: Dealers, Builders aur Colonizers (https://autenflo.com/ai-automation-for-real-estate/)
+
+Ek plot ki enquiry Facebook se aati hai, doosri 99acres se, teesri kisi dalal ke phone se. Teeno alag jagah padi rehti hain aur jis lead ko do din jawab nahi mila, wo kisi aur ke saath site dekh chuka hota hai.
+
+### Problems and how autenflo solves them
+
+- Alag-alag sources ki leads ek jagah nahi: Facebook ad, property portal, board par likha number aur reference, sab ke call alag phone par aate hain. Month ke end me kisi ko nahi pata kaun sa source chala. autenflo: Har source ki lead ek hi sheet me naam, budget, area aur source ke saath apne aap aati hai, taaki pata chale paisa kahan kaam kar raha hai.
+- Site visit ka follow-up chhoot jata hai: Visit ke baad customer ne "sochte hain" kaha aur baat wahin khatam. Agla call kisne karna tha, kisi ko yaad nahi. autenflo: Visit se pehle reminder aur location pin, aur visit ke baad 1, 3 aur 7 din par alag message. Jawab aate hi sales wale ko alert.
+- Brochure, rate aur details baar-baar bhejna: Har customer ko wahi brochure, wahi rate list aur wahi map bhejna padta hai, din me 20 baar. autenflo: Customer ke poochte hi project ka brochure, plot size, rate aur location turant chala jata hai.
+- Kaun hot lead hai, pata hi nahi: Jo customer 3 baar budget aur registry ka timeline pooch chuka hai wo aur jo sirf rate dekh kar chala gaya, dono ek barabar queue me hain. autenflo: AI budget, timeline aur sawalon se hot lead pehchanta hai aur sirf unka alert seedha aapko deta hai.
+- Booking payment aur installment due ka hisaab: Kisne token diya, kis ki kist is mahine aani hai, kis ki pichhle mahine thi, ye sab diary aur memory me chalta hai. autenflo: Payment schedule ek jagah rehta hai aur due se pehle customer ko tameez ka reminder jata hai. Payment aate hi status badal jata hai.
+- Team ki activity ka report manually banana: Kis agent ne kitne call kiye, kitne visit karwaye, kitne band hue, ye jaanne ke liye roz sabko puchna padta hai. autenflo: Roz shaam ko team ki calls, visits aur bookings ka summary owner ko WhatsApp par aa jata hai.
+
+### FAQ
+
+**Real estate ke liye AI WhatsApp automation kya karta hai?**
+Ye alag-alag sources ki leads ek jagah laata hai, brochure aur rate turant bhejta hai, site visit book karta hai aur visit ke baad follow-up karta hai. Hot lead ka alert seedha aapko milta hai.
+
+**Kya chhote property dealer ke liye bhi ye theek hai?**
+Haan. Jo dealer akela 15 se 20 leads sambhalta hai, wahi sabse zyada leads bhoolta hai. Automation uska follow-up ka kaam sambhal leta hai.
+
+**AI hot lead kaise pehchanta hai?**
+Wo customer ke sawal, budget, timeline aur reply ki speed dekhta hai. Aap batate ho kaun si baat serious interest dikhati hai, aur usi ke hisaab se alert aata hai.
+
+**Kya brochure aur rate list customer ko khud bhejega?**
+Haan. Customer ke project ya plot size poochte hi sahi brochure, rate aur location bhej diya jata hai. Rate badalne par ek baar update karna hota hai.
+
+**Site visit ka reminder kaise kaam karta hai?**
+Visit se ek din pehle aur kuch ghante pehle customer ko time aur location pin jata hai. Customer ek tap me time badal bhi sakta hai aur aapko turant pata chalta hai.
+
+**Kya installment aur booking payment ke reminder bhi jayenge?**
+Haan. Payment schedule daalne ke baad due date se pehle tameez wala reminder jata hai. Payment aate hi reminder band ho jata hai.
+
+**Kya ye 99acres ya Facebook leads ke saath chalega?**
+Aksar haan. Jo lead WhatsApp ya form se aati hai wo seedha judti hai. Portal ke hisaab se jodne ka tareeka hum setup ke waqt dekhte hain.
+
+**Kya customer ko lagega ki robot se baat ho rahi hai?**
+Jawab Hindi me, aapke andaaz me aur seedhe hote hain. Jab customer ko insaan se baat karni ho, to baat aapke ya aapke agent ke paas chali jati hai.
+
+**Team ke har agent ka hisaab kaise milta hai?**
+Roz shaam ko summary aati hai ki kis agent ne kitni leads li, kitne visit karwaye aur kitne band hue. Alag se kisi se poochna nahi padta.
+
+**Shuruaat kitne se hoti hai?**
+Launch plan ki one-time installation 14,999 rupaye aur monthly charge 5,999 rupaye se shuru hota hai. WhatsApp, API aur AI usage ka kharcha aapke apne account se jata hai.
+
+## Transport & Logistics (https://autenflo.com/ai-automation-for-transport-and-logistics/)
+
+Party ne subah poochha "Patna se Ranchi 9 ton ka rate?", dopahar ko "gaadi kahan hai?", aur shaam ko "bilty bhejo". Aap driver se baat kar rahe ho aur teeno ka jawab pending hai. Jo transporter pehle rate aur status batata hai, party wahi se maal bhejti hai.
+
+### Problems and how autenflo solves them
+
+- Rate aur gaadi ki availability ke har call ka manual jawab: Party poochhti hai "9 ton, Patna se Ranchi, kal loading?". Aap gaadi ya driver ke saath busy ho, jawab late gaya, aur party ne dusre transporter ko maal de diya. autenflo: Route ke hisaab se rate card se turant quote jata hai, gaadi ki availability batayi jati hai aur serious party ka alert seedha aapko aata hai.
+- "Gaadi kahan hai?" ke baar-baar calls: Har party din me kai baar poochhti hai. Aapko driver ko call karna padta hai, phir party ko. Ek trip par 5-6 calls ka time jata hai. autenflo: Loading, raste me aur delivery ka status party ko WhatsApp par apne aap milta hai. Party ko jawab ke liye aapko call nahi karna padta.
+- Bilty, LR aur challan ki entry register me: Har trip ki bilty aur challan ki entry haath se hoti hai. POD ki photo kisi phone me padi rehti hai aur bill banate waqt dhoondhni padti hai. autenflo: Trip ki details se bilty ka data auto entry hota hai, POD ki photo aate hi record me jud jati hai, aur party ko bhi chali jati hai.
+- Freight ka payment aur party-wise baaki ginna: Kis party ka kitna baaki hai, ye ginte-ginte din nikal jata hai. Maal pahunch gaya par payment ke liye ek-ek ko call karna padta hai. autenflo: POD ke baad bill auto jata hai, due date se pehle tameez ka reminder jata hai, aur roz shaam ko party-wise outstanding ka summary aapko milta hai.
+- Driver ko trip ki details ek-ek karke batana: Loading ka address, party ka number, maal ki details: sab driver ko phone par batani padti hain. Kaun si gaadi khali hai, ye yaad rakhna padta hai. autenflo: Trip ki details driver ko WhatsApp par auto jati hain, khali gaadiyon ki list ek jagah rehti hai, aur staff ko kaam auto assign hota hai.
+- Season me cab aur tour booking ki bheed: Pitru Paksha, Shravani Mela ya shaadi ke season me cab aur tour ki enquiry ek saath aati hai. Confirmation, driver ki detail aur pickup ka time phone par bikhra rehta hai. autenflo: Rate aur availability ka turant jawab, booking WhatsApp par confirm, yatri aur driver dono ko pickup reminder, aur trip ke baad feedback auto.
+
+### FAQ
+
+**Transport business ke liye AI WhatsApp automation kya karta hai?**
+Ye rate aur gaadi ki availability turant batata hai, trip ka status party ko bhejta hai, bilty aur challan ka record rakhta hai, aur freight ka payment reminder deta hai. Sab aapke hi WhatsApp number par chalta hai.
+
+**Kya chhote transporter ya 4-5 gaadi wale ke liye bhi chalega?**
+Haan. Chhote transporter par sab kaam owner khud karta hai, isliye calls aur diary me sabse zyada time jata hai. Automation yehi repetitive kaam sambhal leta hai.
+
+**Kya ye GPS ya tracking system ke saath chalega?**
+Agar aapke paas GPS ya tracking ka system hai to aksar usse jodna ho sakta hai. Agar nahi hai, to driver ke update se bhi status party tak jata hai. Free audit me hum aapka setup dekhkar batate hain.
+
+**Party ko "gaadi kahan hai" ka jawab AI kaise dega?**
+Driver ya aap trip ka status update karte ho, aur AI wahi jaankari party ko WhatsApp par bhejta hai. Jo jaankari AI ke paas nahi hoti, wo wahi se aap tak pahunch jati hai.
+
+**Bilty aur LR ki entry bhi hogi?**
+Trip ki details se bilty aur challan ka data auto entry ho jata hai. Aapke maujooda format aur software ke saath kaise judega, ye pehle process dekhkar tay hota hai.
+
+**Freight ka payment kaise vasool hoga?**
+POD aate hi bill party ko chala jata hai, due date se pehle tameez ka reminder jata hai, aur payment aate hi status update ho jata hai. Aap tay karte ho kitni baar reminder jaye.
+
+**Cab, travels aur tour operators ke liye bhi hai?**
+Haan. Rate aur availability ka turant jawab, booking confirmation, driver ki detail aur pickup reminder auto jate hain. Season ki bheed me bhi ek bhi enquiry nahi chhootti.
+
+**Kya driver ko bhi kuch seekhna padega?**
+Driver ko bas WhatsApp par message dekhna aur status bhejna hota hai. Koi alag app ya technical kaam nahi hai.
+
+**Party ka data kaise rakha jata hai?**
+Party ka naam, number aur trip ki details aapke apne account me rehti hain aur sirf aapke kaam ke liye use hoti hain. Hum privacy policy me likhe niyam follow karte hain.
+
+**Shuruaat kitne se hoti hai?**
+Launch plan ki one-time installation 14,999 rupaye aur monthly charge 5,999 rupaye se shuru hota hai. WhatsApp, API aur AI usage ka kharcha aapke apne account se jata hai.
+
+## Professional Services & Agencies (https://autenflo.com/ai-automation-for-professional-services-and-agencies/)
+
+GST ki last date 3 din door hai. Teen clients ke documents abhi tak nahi aaye, do clients ki fees pichhle mahine se baaki hai, aur ek naya client consultation ke liye poochh raha hai. Ye sab follow-up aap khud kar rahe ho, aur asli kaam peeche chhoot raha hai.
+
+### Problems and how autenflo solves them
+
+- Naye client ki enquiry aur consultation ke liye baar-baar calls: Naya client poochhta hai "GST registration ka kya process hai, fees kitni?". Aap meeting me the, jawab late gaya, aur client ne dusre se baat kar li. autenflo: Aapki services, documents aur fees ki jaankari turant jati hai, consultation ka slot auto book hota hai aur serious client ka alert seedha aapko aata hai.
+- Documents ek-ek karke maangna aur yaad dilana: PAN, Aadhaar, bank statement: har client se alag-alag maangna padta hai. Kaun sa document aaya aur kaun sa baaki hai, ye yaad rakhna mushkil hota hai. autenflo: Client ko checklist jati hai, document aate hi record me jud jata hai, aur jo baaki hai uska reminder tameez se auto jata hai.
+- GST, ITR aur renewal ki due date yaad dilana: Due date nikal gayi to penalty client ki, par naraazgi aapse. Sau clients ki dates diary me likhna aur yaad dilana roz ka kaam hai. autenflo: Due date se pehle client ko reminder auto jata hai, aur aap ko roz ka list milta hai ki kis client ka kaam kahan atka hai.
+- Kaam ho gaya, fees atki hai: Kaam pura hua par fees maangne me jhijhak hoti hai. Invoice banana, bhejna aur baar-baar poochna, teeno me time jata hai. autenflo: Kaam hote hi invoice auto banta hai aur client ko jata hai, due date par tameez ka reminder jata hai, aur roz ka outstanding summary aapko milta hai.
+- Client poochta hai: mera kaam kahan tak pahuncha?: Har client ko status batane ke liye call ya message karna padta hai. Staff ko kaam dene ke baad bhi baar-baar poochna padta hai ki kahan tak hua. autenflo: Kaam ka status client ko WhatsApp par auto milta hai, tasks staff ko assign hote hain, aur agencies ke liye client ko monthly report auto jati hai.
+- Purane clients ko wapas lana, referral maangna: Purana client saal bhar baad kisi aur CA ya agency ke paas chala jata hai, kyunki beech me koi sampark nahi tha. Apni pehchaan ka content banane ka time nahi milta. autenflo: Renewal aur saalana kaam ka reminder auto jata hai, khush client se feedback aur referral maanga jata hai, aur content calendar aur auto-posting se aapki pehchaan banti hai.
+
+### FAQ
+
+**Professional services ke liye AI WhatsApp automation kya karta hai?**
+Ye naye client ki enquiry ka turant jawab deta hai, documents aur due date ka reminder bhejta hai, invoice aur fees ka reminder chalata hai, aur kaam ka status client ko deta hai. Sab aapke hi WhatsApp number par chalta hai.
+
+**Kya AI tax ya legal salah dega?**
+Nahi. AI sirf jaankari, checklist aur reminder ka kaam karta hai. Tax, legal ya case ki salah wale sawal seedha aap ya aapke staff tak jate hain.
+
+**Kya chhote CA, vakeel ya akele consultant ke liye bhi chalega?**
+Haan. Akele professional par follow-up aur reminder ka poora bojh hota hai, isliye automation ka sabse zyada fayda wahi dekhte hain.
+
+**Agencies (marketing, IT, design) ke liye kya hai?**
+Client ki enquiry, proposal ka follow-up, kaam ka status, monthly report aur invoice ka reminder automate hota hai. Client ko baar-baar update nahi dena padta.
+
+**Client ke documents aur confidential jaankari ka kya?**
+Client ka data aapke apne account me rehta hai aur sirf aapke kaam ke liye use hota hai. Hum privacy policy me likhe niyam follow karte hain, aur sensitive baat AI khud nahi sambhalta.
+
+**Due date ke reminder kaise kaam karte hain?**
+Aap client ki dates ek baar daalte ho. AI due date se pehle client ko tameez se reminder bhejta hai, aur aapko roz ki pending list deta hai.
+
+**Fees ki vasooli me kya madad milegi?**
+Kaam hone par invoice auto jata hai, due date par reminder jata hai, aur payment aate hi status update ho jata hai. Aap tay karte ho kitni baar aur kis tone me reminder jaye.
+
+**Kya ye mere accounting ya practice software ke saath chalega?**
+Aksar haan, kyunki ye WhatsApp aur aapki sheet ya software ke beech kaam karta hai. Pehle hum aapka process dekhte hain, phir batate hain kaise judega.
+
+**Setup me kitna time lagta hai?**
+Pehla process aam taur par 2 se 4 hafte me live ho jata hai. Aap bas batate ho ki kaam kaise chalta hai.
+
+**Shuruaat kitne se hoti hai?**
+Launch plan ki one-time installation 14,999 rupaye aur monthly charge 5,999 rupaye se shuru hota hai. WhatsApp, API aur AI usage ka kharcha aapke apne account se jata hai.
+
+## All pages
+
+- [autenflo: AI Business Automation for Bihar, UP, Jharkhand](https://autenflo.com/): Naya staff nahi, agency nahi, manual work nahi. Aapke business ka AI back-office: enquiry se payment tak har process automate. Free 15 minute audit.
+- [AI Training for Schools, Colleges & ITIs | autenflo](https://autenflo.com/ai-training-for-schools-and-colleges/): Daily 1 ghante ki live online AI class: Schools ₹6,999, Colleges ₹9,999, Others ₹8,999 per month. ITIs, workplaces aur institutions ke liye.
+- [Business, AI aur Marketing Tips | autenflo Blog Hindi](https://autenflo.com/blog/): Chhote business ke liye AI, sales, marketing, billing aur payment ke practical tareeke, Hindi me. Message templates aur checklists ke saath.
+- [Missed WhatsApp Enquiry Kaise Ginein (7 Din) | autenflo](https://autenflo.com/blog/missed-whatsapp-enquiry-kaise-check-karein-7-din/): 15 minute me apni enquiries gin kar dekhiye kitni late ya miss hui, aur us ka lagbhag rupaye me hisaab. Seedha WhatsApp aur call log se, bina software ke.
+- [Customer Follow-up ka 1-3-7 Din Rule + Templates | autenflo](https://autenflo.com/blog/customer-follow-up-1-3-7-din-rule-templates/): Enquiry ke baad 1, 3 aur 7 din par kya bhejein, bina customer ko pareshan kiye. Teen chhote message templates ke saath, seedha copy karke use karein.
+- [WhatsApp Par 60 Second Me Reply Kaise Dein | autenflo](https://autenflo.com/blog/whatsapp-par-customer-ko-60-second-me-reply-kaise-dein/): Enquiry aate hi reply dene se order kyun badhte hain, aur chhote business ye kaam bina naya staff rakhe kaise kar sakte hain. Simple steps ke saath.
+- [AI Business Automation in Bihar, UP, Jharkhand | autenflo](https://autenflo.com/ai-whatsapp-automation-bihar-up-jharkhand/): Bihar, Lucknow se Purvanchal aur Jharkhand ke 21 shehron me business ke liye AI process automation: sales, marketing, operations, finance, support.
+- [Industries ke liye AI WhatsApp Automation | autenflo](https://autenflo.com/ai-automation-for-businesses/): Coaching, clinics aur anya businesses ke liye AI WhatsApp automation: har industry ki problem aur uska hal. Bihar, Uttar Pradesh aur Jharkhand me.
+- [D2C & Retail ke liye AI WhatsApp Automation | autenflo](https://autenflo.com/ai-automation-for-d2c-and-retail/): D2C brands, garments, jewellery aur mobile shops ke liye AI: price ka turant reply, order aur COD confirmation, parcel status, festival offers. Bihar, UP, Jharkhand.
+- [Coaching Institute AI WhatsApp Automation | autenflo](https://autenflo.com/ai-automation-for-coaching-institutes/): Coaching, tuition aur school ke liye AI: admission enquiry ka 60 second me reply, demo follow-up, fees reminder aur attendance alert. Bihar, UP, Jharkhand.
+- [Clinic & Hospital AI WhatsApp Automation | autenflo](https://autenflo.com/ai-automation-for-clinics-and-hospitals/): Clinic, hospital aur diagnostic center ke liye AI: appointment booking, no-show reminder, report ready alert aur follow-up. Bihar, UP, Jharkhand.
+- [Real Estate Agents ke liye AI WhatsApp Automation | autenflo](https://autenflo.com/ai-automation-for-real-estate/): Real estate ke liye AI: leads ek jagah, site visit reminder, 1-3-7 din follow-up, hot lead alert aur installment reminder. Bihar, UP, Jharkhand.
+- [Transport & Logistics ke liye AI WhatsApp Automation | autenflo](https://autenflo.com/ai-automation-for-transport-and-logistics/): Truck transport, cab, travels aur courier ke liye AI: rate aur gaadi ka turant jawab, trip status, bilty ki entry, freight payment reminder. Bihar, UP, Jharkhand.
+- [Professional Services & Agencies ke liye AI Automation | autenflo](https://autenflo.com/ai-automation-for-professional-services-and-agencies/): CA, vakeel, consultants, insurance agents aur agencies ke liye AI: consultation booking, documents ka reminder, due date alert, fees ki vasooli. Bihar, UP, Jharkhand.
+- [About autenflo | AI Back-office for Business, Patna, Bihar](https://autenflo.com/about-autenflo/): autenflo Muzaffarpur, Bihar se chalta hai: AI se sales, marketing, operations, finance aur customer service ke manual kaam automate. Free 15 minute audit.
+- [Privacy Policy: Aapka Data Kaise Use Hota Hai | autenflo](https://autenflo.com/privacy-policy/): autenflo kaun si jaankari leta hai, kyun leta hai, kitne samay rakhta hai aur kin ke saath share karta hai. Aapke adhikar aur sampark ki details yahan.
+- [Terms of Service: Charges, AI Seema, Cancellation | autenflo](https://autenflo.com/terms-of-service/): autenflo ki service, charges, AI ki seema, payment aur cancellation ke niyam. Shuru karne se pehle ye saari shartein ek baar dhyan se padh lijiye.
+- [AI Business Automation in Bihar: 8 Cities | autenflo](https://autenflo.com/ai-whatsapp-automation-bihar/): Bihar ke 8 shehron (Patna, Gaya, Bhagalpur, Muzaffarpur aur aage) me AI process automation: sales, marketing, operations, finance. ₹14,999 se.
+- [AI Business Automation in Uttar Pradesh | autenflo](https://autenflo.com/ai-whatsapp-automation-uttar-pradesh/): Uttar Pradesh ke 8 shehron (Lucknow, Varanasi, Prayagraj aur aage) me AI process automation: sales, marketing, operations, finance. ₹14,999 se.
+- [AI Business Automation in Jharkhand: 5 Cities | autenflo](https://autenflo.com/ai-whatsapp-automation-jharkhand/): Jharkhand ke 5 shehron (Ranchi, Jamshedpur, Dhanbad, Bokaro, Deoghar) me AI process automation: sales, marketing, operations, finance. ₹14,999 se.
+- [AI Business Automation in Patna | Coaching | autenflo](https://autenflo.com/ai-whatsapp-automation-patna/): AI automation, Patna: manual kaam, follow-up, billing. Coaching, clinics, real estate: raat 11 baje bhi har enquiry ka reply. Setup ₹14,999 se.
+- [AI Business Automation in Gaya | Cab | autenflo](https://autenflo.com/ai-whatsapp-automation-gaya/): AI process automation, Gaya: manual kaam, follow-up, billing, reports. Pitru Paksha me cab aur tours ki bheed ek saath sambhalen. Setup ₹14,999 se.
+- [AI Business Automation in Bhagalpur | Silk | autenflo](https://autenflo.com/ai-whatsapp-automation-bhagalpur/): AI automation, Bhagalpur: manual kaam, follow-up, billing. Silk aur garment sellers ke order, rate, dispatch aur payment ka hisaab. Setup ₹14,999 se.
+- [AI Business Automation in Muzaffarpur | Retail | autenflo](https://autenflo.com/ai-whatsapp-automation-muzaffarpur/): AI automation, Muzaffarpur: manual kaam, follow-up, billing. Retail, transport aur services: rate, booking aur payment auto. Setup ₹14,999 se.
+- [AI Business Automation in Purnia | Transport | autenflo](https://autenflo.com/ai-whatsapp-automation-purnia/): AI automation, Purnia: manual kaam, follow-up, billing. Makhana traders aur clinics: gaon se aayi enquiry ka turant reply. Setup ₹14,999 se shuru.
+- [AI Business Automation in Darbhanga | Makhana | autenflo](https://autenflo.com/ai-whatsapp-automation-darbhanga/): AI automation, Darbhanga: manual kaam, follow-up, billing. Makhana sellers aur clinics: order, appointment aur payment ka kaam. Setup ₹14,999 se.
+- [AI Business Automation in Bihar Sharif | Retail | autenflo](https://autenflo.com/ai-whatsapp-automation-bihar-sharif/): AI process automation, Bihar Sharif: manual kaam, follow-up, billing, reports. Retail aur transport: rate, booking aur payment ka kaam. Setup ₹14,999 se.
+- [AI Business Automation in Arrah | Retail | autenflo](https://autenflo.com/ai-whatsapp-automation-arrah/): AI automation, Arrah: manual kaam, follow-up, billing. Retail dukaan aur coaching: lead ka reply aur follow-up, bina extra staff. Setup ₹14,999 se.
+- [AI Business Automation in Lucknow | Clinics | autenflo](https://autenflo.com/ai-whatsapp-automation-lucknow/): AI automation, Lucknow: manual kaam, follow-up, billing. Clinics aur D2C boutiques: jo pehle reply kare, customer usi ka. Setup ₹14,999 se.
+- [AI Business Automation in Varanasi | Tours | autenflo](https://autenflo.com/ai-whatsapp-automation-varanasi/): AI process automation, Varanasi: manual kaam, follow-up, billing, reports. Cab, tours aur silk sellers: enquiry se booking tak, ek jagah. Setup ₹14,999 se.
+- [AI Business Automation in Prayagraj | Coaching | autenflo](https://autenflo.com/ai-whatsapp-automation-prayagraj/): AI automation, Prayagraj: manual kaam, follow-up, billing. Exam coaching, hostel aur mela season ke cab aur tours ka poora kaam. Setup ₹14,999 se.
+- [AI Business Automation in Gorakhpur | Clinics | autenflo](https://autenflo.com/ai-whatsapp-automation-gorakhpur/): AI process automation, Gorakhpur: manual kaam, follow-up, billing, reports. Clinics aur transport: door se aaye customer ko turant reply. Setup ₹14,999 se.
+- [AI Business Automation in Ayodhya | Cab | autenflo](https://autenflo.com/ai-whatsapp-automation-ayodhya/): AI process automation, Ayodhya: manual kaam, follow-up, billing, reports. Cab, tours aur dukaan: yatri boom me har enquiry sambhalen. Setup ₹14,999 se.
+- [AI Business Automation in Mirzapur | Retail | autenflo](https://autenflo.com/ai-whatsapp-automation-mirzapur/): AI automation, Mirzapur: manual kaam, follow-up, billing. Carpet sellers aur transport: catalogue, rate, dispatch aur payment. Setup ₹14,999 se.
+- [AI Business Automation in Jaunpur | Coaching | autenflo](https://autenflo.com/ai-whatsapp-automation-jaunpur/): AI process automation, Jaunpur: manual kaam, follow-up, billing, reports. Coaching admission aur garment dukaan: reply se payment tak. Setup ₹14,999 se.
+- [AI Business Automation in Azamgarh | Coaching | autenflo](https://autenflo.com/ai-whatsapp-automation-azamgarh/): AI automation, Azamgarh: manual kaam, follow-up, billing. Coaching aur jewellery dukaan: parents aur customers ko turant jawab. Setup ₹14,999 se.
+- [AI Business Automation in Ranchi | Real Estate | autenflo](https://autenflo.com/ai-whatsapp-automation-ranchi/): AI automation, Ranchi: manual kaam, follow-up, billing. Real estate aur clinics: leads ka reply, follow-up aur appointment. Setup ₹14,999 se.
+- [AI Business Automation in Jamshedpur | Transport | autenflo](https://autenflo.com/ai-whatsapp-automation-jamshedpur/): AI automation, Jamshedpur: manual kaam, follow-up, billing. Transport aur services: quotation, payment aur follow-up ka kaam. Setup ₹14,999 se.
+- [AI Business Automation in Dhanbad | Transport | autenflo](https://autenflo.com/ai-whatsapp-automation-dhanbad/): AI process automation, Dhanbad: manual kaam, follow-up, billing, reports. Transport aur clinics: booking aur payment follow-up. Setup ₹14,999 se.
+- [AI Business Automation in Bokaro | Transport | autenflo](https://autenflo.com/ai-whatsapp-automation-bokaro/): AI process automation, Bokaro: manual kaam, follow-up, billing, reports. Transport aur schools: booking, admission aur payment ka kaam. Setup ₹14,999 se.
+- [AI Business Automation in Deoghar | Cab | autenflo](https://autenflo.com/ai-whatsapp-automation-deoghar/): AI automation, Deoghar: manual kaam, follow-up, billing. Shravani Mela me cab aur peda dukaan ke orders ki bheed ek saath sambhalen. Setup ₹14,999 se.
+

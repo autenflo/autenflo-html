@@ -5,6 +5,7 @@ Shehron ki list cities.json me hai. Naya shehar jodna ho to wahan ek entry badha
 """
 import json, os, re, shutil, urllib.parse as U
 from html import escape as E
+from industry_data import IND
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'autenflo-site')
@@ -12,7 +13,7 @@ R = lambda n: open(os.path.join(HERE, n), encoding='utf-8').read()
 data = json.load(open(os.path.join(HERE, 'cities.json'), encoding='utf-8'))
 states, cities = data['states'], data['cities']
 SITE = 'https://autenflo.com'
-TODAY = '2026-11-12'
+TODAY = '2026-11-26'
 AI = '<b class="aih">AI</b>'
 WA = lambda t: 'https://wa.me/918849031907?text=' + U.quote(t)
 WI = '<svg class="wi" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa"></use></svg>'
@@ -52,12 +53,49 @@ def write(path, s):
     os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, 'w', encoding='utf-8').write(s)
 
-LINKS = [('/#aapka', 'Businesses'), ('/#plans', 'Pricing'), (U_CITIES, 'Cities'), (U_BLOG, 'Blog'), (U_ABOUT, 'About')]
-HEADER = ('<header><div class="wrap"><a class="wm" href="/" aria-label="autenflo home"><img src="/logo.png" alt="autenflo" width="230" height="38"></a><nav>'
-          + ''.join(f'<a class="ul" href="{h}">{t}</a>' for h, t in LINKS)
-          + f'<a class="btn wab" href="{WA("Namaste autenflo, mujhe free process audit chahiye")}">{WI}Baat karein</a></nav>'
-          '<details class="mnav"><summary aria-label="Menu"><span></span><span></span><span></span></summary><div class="mp">'
-          + ''.join(f'<a href="{h}">{t}</a>' for h, t in LINKS) + '</div></details></div></header>')
+IND_TAG = {
+    'd2c': 'Enquiry, order, COD aur repeat customers',
+    'coaching': 'Admission enquiry, fees aur attendance alert',
+    'clinic': 'Appointment, no-show reminder, report alert',
+    'realestate': 'Leads, site visit follow-up, installment',
+    'transport': 'Rate quote, gaadi status, bilty aur freight vasooli',
+    'services': 'Documents, due date reminder, fees vasooli',
+}
+SOL_MENU = [
+    ('Sales & Follow-up', 'Enquiry ka 60 second me reply, 1-3-7 din follow-up'),
+    ('Customer Support 24x7', 'Hindi me jawab, mushkil case seedha aap tak'),
+    ('Quotation, Billing & Vasooli', 'Invoice auto, due date se pehle reminder'),
+    ('Orders, Stock & Reports', 'Auto record, low stock alert, roz ka summary'),
+    ('Marketing & Social Media', 'Posts, reels aur auto-posting'),
+]
+CHV = '<svg class="chv" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
+_WAQ = WA("Namaste autenflo, mujhe free process audit chahiye")
+def _mega_menu():
+    ind = ''.join(f'<a class="mgi" href="{v["u"]}"><span class="mn">{i:02d}</span><span><b>{E(v["name"])}</b><small>{IND_TAG[k]}</small></span></a>' for i, (k, v) in enumerate(IND.items(), 1))
+    m_ind = (f'<div class="mi"><button class="mt" type="button" aria-expanded="false" aria-controls="mm-ind">Industries{CHV}</button><div class="mm" id="mm-ind"><div class="mm-in"><div class="mm-l"><p class="mh">Apni industry chuniye</p><div class="mg2">{ind}</div></div>'
+             f'<aside class="mm-r"><b>Business list me nahi hai?</b><p>15 minute ka free process audit. Hum bata denge kaun sa kaam automate hoga.</p><a class="btn wab" href="{_WAQ}">{WI}Abhi baat karein</a><a class="ul" href="{U_IND}">Sabhi industries dekhein →</a></aside></div></div></div>')
+    sol = ''.join(f'<a class="mgi" href="/#processes"><span class="mn">{i}</span><span><b>{t}</b><small>{d}</small></span></a>' for i, (t, d) in enumerate(SOL_MENU, 1))
+    m_sol = (f'<div class="mi"><button class="mt" type="button" aria-expanded="false" aria-controls="mm-sol">Solutions{CHV}</button><div class="mm" id="mm-sol"><div class="mm-in"><div class="mm-l"><p class="mh">Kaam ke hisaab se</p><div class="mg2">{sol}</div></div>'
+             f'<aside class="mm-r mm-t"><span class="tg2">{AI} Training</span><b>Schools, Colleges aur Institutes</b><p>Daily 1 ghante ki live online class, Hindi me.</p><ul><li>Schools <strong>₹6,999</strong></li><li>Colleges <strong>₹9,999</strong></li><li>Others <strong>₹8,999</strong></li></ul><a class="btn" href="{U_TRAIN}">Training plans dekhein</a></aside></div></div></div>')
+    cols = ''
+    for k in states:
+        cols += f'<div class="mc"><a class="mh" href="{u_state(k)}">{STATE_NAME[k].split(" (")[0]} →</a><ul>' + ''.join(f'<li><a href="{u_city(c["slug"])}">{E(c["name"])}</a></li>' for c in cities if c['state'] == k) + '</ul></div>'
+    m_city = (f'<div class="mi"><button class="mt" type="button" aria-expanded="false" aria-controls="mm-city">Cities{CHV}</button><div class="mm" id="mm-city"><div class="mm-in mm-c"><div class="mcg">{cols}</div>'
+              f'<aside class="mm-r"><b>Setup online hota hai</b><p>Aapka shehar list me na ho tab bhi kaam ho jata hai. Office aane ki zaroorat nahi.</p><a class="ul" href="{U_CITIES}">Sabhi {len(cities)} cities dekhein →</a></aside></div></div></div>')
+    return m_ind + m_sol + m_city
+def _mobile_menu():
+    d = lambda t, inner: f'<details class="ms"><summary>{t}</summary><div>{inner}</div></details>'
+    a = lambda h, t: f'<a href="{h}">{t}</a>'
+    return (d('Industries', ''.join(a(v['u'], E(v['name'])) for v in IND.values()) + a(U_IND, 'Sabhi industries →'))
+            + d('Solutions', ''.join(a('/#processes', t) for t, _ in SOL_MENU) + a(U_TRAIN, 'AI Training (Schools, Colleges)'))
+            + d('Cities', ''.join(a(u_state(k), STATE_NAME[k].split(' (')[0] + ' ke sabhi shehar') for k in states) + a(u_city('patna'), 'Patna') + a(u_city('lucknow'), 'Lucknow') + a(u_city('ranchi'), 'Ranchi') + a(U_CITIES, 'Sabhi cities →'))
+            + a('/#plans', 'Pricing') + a(U_BLOG, 'Blog') + a(U_ABOUT, 'About')
+            + f'<a class="btn wab" href="{_WAQ}">{WI}Baat karein</a>')
+HEADER = ('<header><div class="wrap"><a class="wm" href="/" aria-label="autenflo home"><img src="/logo.png" alt="autenflo" width="230" height="38"></a><nav aria-label="Main">'
+          + _mega_menu()
+          + ''.join(f'<a class="ul" href="{h}">{t}</a>' for h, t in (('/#plans', 'Pricing'), (U_BLOG, 'Blog'), (U_ABOUT, 'About')))
+          + f'<a class="btn wab" href="{_WAQ}">{WI}Baat karein</a></nav>'
+          '<details class="mnav"><summary aria-label="Menu"><span></span><span></span><span></span></summary><div class="mp">' + _mobile_menu() + '</div></details></div></header>')
 def _footer():
     wa = WA("Namaste autenflo, mujhe free process audit chahiye")
     top = {}
@@ -71,7 +109,7 @@ def _footer():
       '<div class="fgrid">'
       '<div class="fb0"><a class="wm" href="/" aria-label="autenflo home"><img src="/logo.png" alt="autenflo" width="250" height="42" loading="lazy"></a><p>autenflo aapke business ka AI back-office hai: enquiry se payment tak, har manual aur repetitive process AI se automate. Muzaffarpur, Bihar.</p>'
       f'<div class="fct"><a class="ul" href="mailto:hello@autenflo.com">hello@autenflo.com</a><a class="ul" href="{wa}">Phone: +91 88490 31907</a></div></div>'
-      '<div class="fc"><h4>Quick links</h4><ul><li><a href="/">Home</a></li><li><a href="/#aapka">Businesses</a></li><li><a href="/#plans">Pricing</a></li><li><a href="/#results">Hamara tareeka</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/#sampark">Contact</a></li></ul></div>'
+      '<div class="fc"><h4>Quick links</h4><ul><li><a href="/">Home</a></li><li><a href="/#aapka">Industries</a></li><li><a href="/#plans">Pricing</a></li><li><a href="/#training">AI Training</a></li><li><a href="/#results">Hamara tareeka</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/#sampark">Contact</a></li></ul></div>'
       f'<div class="fc"><h4>Explore</h4><ul><li><a href="{U_BLOG}">Blog</a></li><li><a href="{U_TRAIN}">AI Training for Institutions</a></li><li><a href="{U_CITIES}">Sabhi Cities</a></li><li><a href="{U_IND}">Industries</a></li><li><a href="{U_ABOUT}">About</a></li><li><a href="{U_PRIVACY}">Privacy Policy</a></li><li><a href="{U_TERMS}">Terms</a></li></ul></div>'
       + cols + '</div>'
       '<div class="fbot"><p>© <span id="yr">2026</span> autenflo. Sabhi adhikar surakshit.</p><p>Bihar, Uttar Pradesh aur Jharkhand ke businesses ka AI back-office.</p><p>Mishratola, Gannipur, Muzaffarpur, Bihar · <a class="ul" href="https://www.instagram.com/autenfloai/" target="_blank" rel="me noopener">Instagram</a> · <a class="ul" href="https://www.linkedin.com/company/autenflo/" target="_blank" rel="me noopener">LinkedIn</a></p><a class="ul" href="#top">Upar jaayein ↑</a></div>'
@@ -85,26 +123,26 @@ NOINDEX = set()
 # slug: (title me shehar ka naam, 2 chhote keyword, local line)
 CITY_SEO = {
  'patna': ('Patna', 'Coaching, Clinics', 'Coaching, clinics, real estate: raat 11 baje bhi har enquiry ka reply.'),
- 'muzaffarpur': ('Muzaffarpur', 'Wholesale, Real Estate', 'Wholesale aur real estate: rate, quotation, site visit aur payment auto.'),
- 'gaya': ('Gaya', 'Hotels, Travel', 'Pitru Paksha me hotel aur travel ki bheed ek saath sambhalen.'),
- 'purnia': ('Purnia', 'Wholesale, Clinics', 'Wholesale aur clinics: gaon se aayi enquiry ka turant reply.'),
- 'bhagalpur': ('Bhagalpur', 'Wholesale, Clinics', 'Wholesale ke order, rate, dispatch aur payment ka hisaab.'),
+ 'muzaffarpur': ('Muzaffarpur', 'Retail, Transport', 'Retail, transport aur services: rate, booking aur payment auto.'),
+ 'gaya': ('Gaya', 'Cab, Tours', 'Pitru Paksha me cab aur tours ki bheed ek saath sambhalen.'),
+ 'purnia': ('Purnia', 'Transport, Clinics', 'Transport aur clinics: gaon se aayi enquiry ka turant reply.'),
+ 'bhagalpur': ('Bhagalpur', 'Silk, Retail', 'Silk aur garment sellers ke order, rate, dispatch aur payment ka hisaab.'),
  'arrah': ('Arrah', 'Retail, Coaching', 'Retail dukaan aur coaching: lead ka reply aur follow-up, bina extra staff.'),
- 'bihar-sharif': ('Bihar Sharif', 'Hardware, Coaching', 'Hardware dukaan aur coaching: quotation, payment aur stock ka kaam.'),
- 'darbhanga': ('Darbhanga', 'Retail, Clinics', 'Retail aur clinics: order, appointment aur payment ka kaam.'),
- 'lucknow': ('Lucknow', 'Clinics, Retail', 'Clinics aur retail: jo pehle reply kare, customer usi ka.'),
- 'varanasi': ('Varanasi', 'Hotels, Retail', 'Hotel, tours aur retail: enquiry se booking tak, ek jagah.'),
- 'prayagraj': ('Prayagraj', 'Coaching, Hotels', 'Exam coaching, hostel aur mela season ke hotel ka poora kaam.'),
- 'gorakhpur': ('Gorakhpur', 'Clinics, Hotels', 'Clinics aur hotels: door se aaye customer ko turant reply.'),
- 'ayodhya': ('Ayodhya', 'Hotels, Travel', 'Hotel, homestay aur cab: yatri boom me har enquiry sambhalen.'),
- 'mirzapur': ('Mirzapur', 'Wholesale, Hardware', 'Wholesale aur hardware vyapari: catalogue, rate, dispatch aur payment.'),
+ 'bihar-sharif': ('Bihar Sharif', 'Retail, Transport', 'Retail aur transport: rate, booking aur payment ka kaam.'),
+ 'darbhanga': ('Darbhanga', 'Makhana, Clinics', 'Makhana sellers aur clinics: order, appointment aur payment ka kaam.'),
+ 'lucknow': ('Lucknow', 'Clinics, D2C', 'Clinics aur D2C boutiques: jo pehle reply kare, customer usi ka.'),
+ 'varanasi': ('Varanasi', 'Tours, Silk', 'Cab, tours aur silk sellers: enquiry se booking tak, ek jagah.'),
+ 'prayagraj': ('Prayagraj', 'Coaching, Travel', 'Exam coaching, hostel aur mela season ke cab aur tours ka poora kaam.'),
+ 'gorakhpur': ('Gorakhpur', 'Clinics, Transport', 'Clinics aur transport: door se aaye customer ko turant reply.'),
+ 'ayodhya': ('Ayodhya', 'Cab, Tours', 'Cab, tours aur dukaan: yatri boom me har enquiry sambhalen.'),
+ 'mirzapur': ('Mirzapur', 'Retail, Transport', 'Carpet sellers aur transport: catalogue, rate, dispatch aur payment.'),
  'jaunpur': ('Jaunpur', 'Coaching, Garments', 'Coaching admission aur garment dukaan: reply se payment tak.'),
  'azamgarh': ('Azamgarh', 'Coaching, Jewellery', 'Coaching aur jewellery dukaan: parents aur customers ko turant jawab.'),
  'ranchi': ('Ranchi', 'Real Estate, Clinics', 'Real estate aur clinics: leads ka reply, follow-up aur appointment.'),
- 'jamshedpur': ('Jamshedpur', 'Wholesale, Retail', 'Wholesale aur retail: quotation, payment aur follow-up ka kaam.'),
- 'dhanbad': ('Dhanbad', 'Wholesale, Clinics', 'Wholesale aur clinics: quotation aur payment follow-up.'),
- 'bokaro': ('Bokaro', 'Wholesale, Schools', 'Wholesale aur schools: quotation, admission aur payment ka kaam.'),
- 'deoghar': ('Deoghar', 'Hotels, Retail', 'Shravani Mela me hotel aur retail orders ki bheed ek saath sambhalen.'),
+ 'jamshedpur': ('Jamshedpur', 'Transport, Services', 'Transport aur services: quotation, payment aur follow-up ka kaam.'),
+ 'dhanbad': ('Dhanbad', 'Transport, Clinics', 'Transport aur clinics: booking aur payment follow-up.'),
+ 'bokaro': ('Bokaro', 'Transport, Schools', 'Transport aur schools: booking, admission aur payment ka kaam.'),
+ 'deoghar': ('Deoghar', 'Cab, Retail', 'Shravani Mela me cab aur peda dukaan ke orders ki bheed ek saath sambhalen.'),
 }
 BLOG_SEO_TITLES = {
  'whatsapp-par-60-second-me-reply': '60 Second me Reply Kaise Dein | autenflo',
@@ -118,7 +156,7 @@ def city_seo(slug):
     for t in (f'AI Business Automation in {n} | {t1} | autenflo', f'AI Business Automation in {n} | autenflo'):
         if len(t) <= 60: break
     full, short = f'AI process automation, {n}: manual kaam, follow-up, billing, reports.', f'AI automation, {n}: manual kaam, follow-up, billing.'
-    for pre, tail in ((full, 'Setup ₹9,999 se.'), (short, 'Setup ₹9,999 se.'), (full, '₹9,999 se.'), (short, '₹9,999 se.')):
+    for pre, tail in ((full, 'Setup ₹14,999 se.'), (short, 'Setup ₹14,999 se.'), (full, '₹14,999 se.'), (short, '₹14,999 se.')):
         d = f'{pre} {local} {tail}'
         if len(d) <= 155: break
     return t, d
@@ -128,17 +166,17 @@ def city_seo(slug):
 CITY_H1 = {
  'patna': 'Patna me enquiry aati hai har waqt. Jawab bhi do, har waqt',
  'muzaffarpur': 'Muzaffarpur ke trader ke liye, enquiry se dispatch tak',
- 'gaya': 'Gaya ke hotel aur dharamshala ke liye AI booking assistant',
+ 'gaya': 'Gaya ke cab aur tour operator ke liye AI booking assistant',
  'purnia': 'Purnia ke vyapari ke liye AI jo kabhi chhutti nahi leta',
- 'bhagalpur': 'Bhagalpur ke wholesale dukandaar ke liye: rate, catalogue, dispatch',
+ 'bhagalpur': 'Bhagalpur ke silk aur garment seller ke liye: rate, catalogue, dispatch',
  'arrah': 'Arrah me dukaan chalao, enquiry AI sambhale',
  'bihar-sharif': 'Bihar Sharif me chhota business, bada system',
- 'darbhanga': 'Darbhanga ke retail aur medical business ke liye AI',
+ 'darbhanga': 'Darbhanga ke makhana seller aur retail business ke liye AI',
  'lucknow': 'Lucknow ka business ab customer ko nahi rukata',
  'varanasi': 'Varanasi ke yatri aur khareedar, dono ko turant jawab',
- 'prayagraj': 'Prayagraj ke coaching aur hotel ke liye AI assistant',
+ 'prayagraj': 'Prayagraj ke coaching aur travel business ke liye AI assistant',
  'gorakhpur': 'Gorakhpur ke hospital, dukaan aur coaching ke liye 24x7 reply',
- 'ayodhya': 'Ayodhya ke hotel aur dukaan: booking aur enquiry, 24x7',
+ 'ayodhya': 'Ayodhya ke cab aur dukaan: booking aur enquiry, 24x7',
  'mirzapur': 'Mirzapur ke exporter ke liye: buyer ko turant jawab',
  'jaunpur': 'Jaunpur ke coaching aur dukandaar ke liye 24x7 assistant',
  'azamgarh': 'Azamgarh ke school aur coaching ke liye: enquiry se admission tak',
@@ -146,7 +184,7 @@ CITY_H1 = {
  'jamshedpur': 'Jamshedpur ke chhote udyog ke liye AI jo hisaab aur reminder dekhe',
  'dhanbad': 'Dhanbad ke dukandaar aur clinic ke liye: har customer ko jawab',
  'bokaro': 'Bokaro ke dukandaar aur coaching ke liye 24x7 reply',
- 'deoghar': 'Deoghar ke hotel aur peda dukaan ke liye AI assistant',
+ 'deoghar': 'Deoghar ke cab aur peda dukaan ke liye AI assistant',
 }
 HUB_H1 = {
  'bihar': 'Gaya se Purnia tak: har enquiry ka turant jawab.',
@@ -160,10 +198,10 @@ SEO_OV = {
  '/ai-automation-for-clinics-and-hospitals/': ('Clinic & Hospital AI WhatsApp Automation | autenflo', 'Clinic, hospital aur diagnostic center ke liye AI: appointment booking, no-show reminder, report ready alert aur follow-up. Bihar, UP, Jharkhand.'),
  '/ai-automation-for-coaching-institutes/': ('Coaching Institute AI WhatsApp Automation | autenflo', 'Coaching, tuition aur school ke liye AI: admission enquiry ka 60 second me reply, demo follow-up, fees reminder aur attendance alert. Bihar, UP, Jharkhand.'),
  '/ai-automation-for-businesses/': (None, 'Coaching, clinics aur anya businesses ke liye AI WhatsApp automation: har industry ki problem aur uska hal. Bihar, Uttar Pradesh aur Jharkhand me.'),
- '/ai-whatsapp-automation-bihar/': ('AI Business Automation in Bihar: 8 Cities | autenflo', 'Bihar ke 8 shehron (Patna, Gaya, Bhagalpur, Muzaffarpur aur aage) me AI process automation: sales, marketing, operations, finance. ₹9,999 se.'),
- '/ai-whatsapp-automation-jharkhand/': ('AI Business Automation in Jharkhand: 5 Cities | autenflo', 'Jharkhand ke 5 shehron (Ranchi, Jamshedpur, Dhanbad, Bokaro, Deoghar) me AI process automation: sales, marketing, operations, finance. ₹9,999 se.'),
+ '/ai-whatsapp-automation-bihar/': ('AI Business Automation in Bihar: 8 Cities | autenflo', 'Bihar ke 8 shehron (Patna, Gaya, Bhagalpur, Muzaffarpur aur aage) me AI process automation: sales, marketing, operations, finance. ₹14,999 se.'),
+ '/ai-whatsapp-automation-jharkhand/': ('AI Business Automation in Jharkhand: 5 Cities | autenflo', 'Jharkhand ke 5 shehron (Ranchi, Jamshedpur, Dhanbad, Bokaro, Deoghar) me AI process automation: sales, marketing, operations, finance. ₹14,999 se.'),
  '/ai-whatsapp-automation-bihar-up-jharkhand/': (None, 'Bihar, Lucknow se Purvanchal aur Jharkhand ke 21 shehron me business ke liye AI process automation: sales, marketing, operations, finance, support.'),
- '/ai-whatsapp-automation-purnia/': (None, 'AI automation, Purnia: manual kaam, follow-up, billing. Makhana traders aur clinics: gaon se aayi enquiry ka turant reply. Setup ₹9,999 se shuru.'),
+ '/ai-whatsapp-automation-purnia/': (None, 'AI automation, Purnia: manual kaam, follow-up, billing. Makhana traders aur clinics: gaon se aayi enquiry ka turant reply. Setup ₹14,999 se shuru.'),
  '/about-autenflo/': (None, 'autenflo Muzaffarpur, Bihar se chalta hai: AI se sales, marketing, operations, finance aur customer service ke manual kaam automate. Free 15 minute audit.'),
  '/blog/': ('Business, AI aur Marketing Tips | autenflo Blog Hindi', None),
  '/blog/customer-follow-up-1-3-7-din-rule-templates/': (None, 'Enquiry ke baad 1, 3 aur 7 din par kya bhejein, bina customer ko pareshan kiye. Teen chhote message templates ke saath, seedha copy karke use karein.'),
@@ -221,16 +259,16 @@ PROBLEMS = [
     ('⚙️', 'Manual kaam me time jata hai', 'Order, data entry, task aur report ka roz ka kaam AI se.'),
 ]
 STEPS = [('Aap apne processes batate ho', 'Business, team aur roz ke kaam ke baare me batate ho.'), ('Hum setup karte hain', 'Follow-up, data entry, billing, reminders aur reports, sab online.'), ('AI kaam karta hai, aap deal close karte ho', 'Har mahine ek simple report aur zaroorat par tuning.')]
-BIZ = ['Coaching & Schools', 'Clinics & Diagnostics', 'Real Estate', 'Wholesale & Hardware', 'Retail: Garments, Jewellery, Mobile', 'Hotels, Travel & Tours']
+BIZ = ['D2C & Retail', 'Coaching & Schools', 'Clinics & Diagnostics', 'Real Estate', 'Transport & Logistics', 'Professional Services & Agencies']
 PLANS = [
-    ('Launch', 'For Startups', '9,999', '2,999', ['Free Website Revamp', f'3 Days {AI} Training to Staff @ ₹999', 'Free Social Media Starter Package']),
-    ('Accelerate', 'For Growing Businesses', '19,999', '5,999', ['Free Website', f'Free {AI} Training to Staff', 'Free Social Media Package']),
-    ('Titan', 'For Established Businesses', '29,999', '9,999', ['Free Website', f'Free {AI} Training to Staff', 'Free Social Media Package']),
+    ('Launch', 'For Startups', '14,999', '5,999', ['Free Website Revamp', f'3 Days {AI} Training to Staff @ ₹999', 'Free Social Media Starter Package']),
+    ('Accelerate', 'For Growing Businesses', '24,999', '9,999', ['Free Website', f'Free {AI} Training to Staff', 'Free Social Media Package']),
+    ('Titan', 'For Established Businesses', '44,999', '17,999', ['Free Website', f'Free {AI} Training to Staff', 'Free Social Media Package']),
 ]
 
 # Home page ka poora pricing block (plans, comparison, service table, monthly charge). Home me badlo, city pages me apne aap aa jata hai.
 _H = R('home.html')
-PRICING = _H[_H.index('<p class="sub">Ek baar installation'):_H.index('<!--/pricing-->')]
+PRICING = _H[_H.index('<!--pricing-->') + len('<!--pricing-->'):_H.index('<!--/pricing-->')]
 
 # autenflo ke saare solutions, process ke hisaab se
 SOLUTIONS = [
@@ -252,7 +290,7 @@ def faq_list(n):
     return [
         (f'autenflo {n} ke business ke liye kya karta hai?', f'autenflo {n} ke business ko AI ki power deta hai: enquiry ka turant reply, hot leads ka follow-up, marketing aur social media posts aur videos, payment reminder aur hisaab me madad. Ye sab automatic chalta hai, 24x7.'),
         (f'Kya {n} me setup ke liye office aana padta hai?', 'Nahi. Poora setup online hota hai. Aap apne processes batate ho, baaki kaam hum sambhalte hain.'),
-        ('Shuruaat kitne se hoti hai?', 'Launch plan ki one-time installation ₹9,999 aur monthly charge ₹2,999 se shuru hota hai. Messaging platform, API aur AI usage ka kharcha aapke apne account se jata hai.'),
+        ('Shuruaat kitne se hoti hai?', 'Launch plan ki one-time installation ₹14,999 aur monthly charge ₹5,999 se shuru hota hai. Messaging platform, API aur AI usage ka kharcha aapke apne account se jata hai.'),
         ('Kya customer se Hindi me baat hoti hai?', 'Haan, Hindi me aur zaroorat par English me. Jahan insaan ki zaroorat ho, wahan baat seedha aap ya aapke staff tak pahunch jaati hai.'),
     ]
 
@@ -293,14 +331,14 @@ def city_page(c):
 <section class="sec" id="solutions"><div class="wrap"><span class="eyebrow">Hamare solutions</span><h2 class="wide">{n} ke business ke poore processes, ek jagah.</h2><p class="sub">Enquiry se payment tak, har manual aur repetitive kaam. Sales, marketing, operations, customer service aur finance, sab hum sambhalte hain, aur institutions ke liye {AI} Training bhi.</p><div class="g3">{sol}</div></div></section>
 <section class="sec"><div class="wrap"><span class="eyebrow">{n} ka business calendar</span><h2 class="wide">Kab {AI} ON karna sabse zyada kaam aata hai.</h2><p class="sub">{E(d['season'])}</p></div></section>
 <section class="sec"><div class="wrap"><span class="eyebrow">Hum kahan kaam karte hain</span><h2 class="wide">{n} ke in ilaakon ke business ke liye.</h2><div class="chips">{areas}</div></div></section>
-<section class="sec" id="plans"><div class="wrap"><span class="eyebrow">Pricing · {n}</span><h2 class="wide">Employee ki salary ka sirf 12–15%. Kaam ek poori team jitna.</h2>{pricing}</div></section>
+<section class="sec" id="plans"><div class="wrap"><span class="eyebrow">Pricing · {n}</span><h2 class="wide">Same kaam ke staff ka kharcha ₹20,000 se ₹85,000 mahina. autenflo ₹5,999 se.</h2>{pricing}</div></section>
 <section class="sec fq"><div class="wrap"><span class="eyebrow">Mann me jo sawal hain</span><h2>Pehle ye jaan lijiye</h2>{''.join(f'<details><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q, a in faq)}</div></section>
 <section class="sec"><div class="wrap"><div class="glass fin2"><div><h2>{n} ke apne business me {AI} lagayein.</h2><p class="sub">Batayiye aapka business kya hai, hum bataenge kaun se manual kaam sabse pehle automate hon.</p></div><a class="btn wab" href="{msg}">{WI}Abhi baat karein</a></div><h3 class="mt2">{sn} ke aur shehar</h3><div class="cgrid">{''.join(f'<a class="cc glass" href="{u_city(x["slug"])}"><div><h3>{x["name"]}</h3><p>{E(CITY[x["slug"]]["biz"][0][0])}</p></div></a>' for x in near)}</div></div></section></main>"""
     seo_t, seo_d = city_seo(c['slug'])
     ld = [{'@context': 'https://schema.org', '@type': 'WebPage', '@id': url, 'url': url, 'name': seo_t, 'description': seo_d, 'inLanguage': 'hi-Latn', 'isPartOf': {'@type': 'WebSite', 'name': 'autenflo', 'url': SITE}},
           {'@context': 'https://schema.org', '@type': 'Service', 'name': f'AI business process automation in {n}', 'serviceType': 'AI business process automation', 'url': url,
            'description': seo_d, 'provider': ORG, 'areaServed': {'@type': 'City', 'name': n, 'containedInPlace': {'@type': 'State', 'name': sn}},
-           'offers': {'@type': 'Offer', 'name': 'Launch plan: one-time installation', 'priceCurrency': 'INR', 'price': '9999', 'url': url + '#plans'}},
+           'offers': {'@type': 'Offer', 'name': 'Launch plan: one-time installation', 'priceCurrency': 'INR', 'price': '14999', 'url': url + '#plans'}},
           {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]}]
     page(fp(u_city(c['slug'])), seo_t, seo_d, main, ld, crumbs=CR)
     return url
@@ -322,7 +360,7 @@ def hub_page(st):
     extra = f'<section class="sec"><div class="wrap"><span class="eyebrow">{sn} me AI</span><h2 class="wide">{sn} me AI automation kahan available hai?</h2><p class="sub ans">{E(hans)}</p></div></section><section class="sec fq"><div class="wrap"><span class="eyebrow">Mann me jo sawal hain</span><h2>{sn}: aapke sawal, seedhe jawab</h2>' + ''.join(f'<details><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q, a in hfaq) + '</div></section>'
     main = main.replace('</main>', extra + '</main>')
     t = f'AI Business Automation in {states[st]["short"]} | autenflo'
-    d = f'{states[st]["short"]} ke {len(lst)} shehron ({", ".join(x["name"] for x in lst[:3])} aur aage) me AI process automation: sales, marketing, operations, finance. ₹9,999 se.'
+    d = f'{states[st]["short"]} ke {len(lst)} shehron ({", ".join(x["name"] for x in lst[:3])} aur aage) me AI process automation: sales, marketing, operations, finance. ₹14,999 se.'
     hu = SITE + u_state(st)
     ld = [{'@context': 'https://schema.org', '@type': 'CollectionPage', '@id': hu, 'url': hu, 'name': t, 'description': d, 'inLanguage': 'hi-Latn', 'isPartOf': {'@type': 'WebSite', 'name': 'autenflo', 'url': SITE},
            'mainEntity': {'@type': 'ItemList', 'itemListElement': [{'@type': 'ListItem', 'position': i, 'name': x['name'], 'url': SITE + u_city(x['slug'])} for i, x in enumerate(lst, 1)]}}]
@@ -336,7 +374,7 @@ def cities_index():
     cnt = {k: sum(1 for x in cities if x['state'] == k) for k in states}
     ia = f'autenflo {len(cities)} shehron me kaam karta hai: ' + ', '.join(f'{STATE_NAME[k]} ke {cnt[k]}' for k in states) + '. Setup online hota hai, isliye office aana zaroori nahi. Har shehar ke business ke hisaab se enquiry reply, follow-up, marketing aur payment reminder alag set kiye jate hain, sab WhatsApp par.'
     cf = [('AI automation kin states aur shehron me available hai?', f'Bihar ke {cnt["bihar"]}, Uttar Pradesh ke {cnt["uttar-pradesh"]} aur Jharkhand ke {cnt["jharkhand"]} shehron me, yaani kul {len(cities)} shehron me. Setup online hota hai.'),
-          ('Kaun si industries ke liye AI automation hai?', 'Coaching aur schools, clinics aur diagnostics, real estate, wholesale aur hardware, retail (garments, jewellery, mobile) aur hotels, travel aur tours ke liye. Har industry ka alag page hai.'),
+          ('Kaun si industries ke liye AI automation hai?', 'D2C aur retail (garments, jewellery, mobile), coaching aur schools, clinics aur diagnostics, real estate, transport aur logistics, aur professional services aur agencies ke liye. Har industry ka alag page hai.'),
           ('Agar mera shehar list me nahi hai to?', 'Setup online hota hai, isliye aap kisi bhi shehar se shuru kar sakte hain. Hum aapke business ka process dekhkar bata dete hain ki kya aur kaise automate hoga.'),
           faq_list('Bihar')[2], faq_list('Bihar')[1], faq_list('Bihar')[3]]
     main = main.replace('</main>', f'<section class="sec"><div class="wrap"><span class="eyebrow">Hamare shehar</span><h2 class="wide">autenflo kin shehron me kaam karta hai?</h2><p class="sub ans">{E(ia)}</p></div></section><section class="sec fq"><div class="wrap"><span class="eyebrow">Mann me jo sawal hain</span><h2>Shehron ke baare me sawal, seedhe jawab</h2>' + ''.join(f'<details><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q, a in cf) + '</div></section></main>')
@@ -523,13 +561,13 @@ def industry_page(k):
 <section class="sec"><div class="wrap"><span class="eyebrow">Ye page kis ke liye hai</span><h2 class="wide">{E(nm)} me kaam kahan atakta hai?</h2><p class="sub ans">{E(d['intro'])}</p></div></section>
 <section class="sec"><div class="wrap"><span class="eyebrow">{len(d['probs'])} badi problems</span><h2 class="wide">Problem aur uska {AI} wala hal.</h2><div class="g3">{probs}</div><h3 class="mt2">Manual tareeka vs autenflo {AI}</h3><div class="tw"><table class="tbl"><caption class="eyebrow">{E(nm)}: kaam kaise badalta hai</caption><tr><th scope="col">Problem</th><th scope="col">autenflo {AI} se</th></tr>{tbl}</table></div></div></section>
 <section class="sec"><div class="wrap"><span class="eyebrow">AI kahan lagta hai</span><h2 class="wide">{E(nm)} me {AI} kya kaam karta hai?</h2><p class="sub ans">{ans}</p><ul class="sl">{uses}</ul><div class="glass bz" style="margin-top:18px"><h3>Ek asli chat ka namuna</h3><p class="fx1"><b>Customer:</b> {E(q)}</p><p class="fx1"><b>{AI} assistant:</b> {E(a)}</p></div></div></section>
-<section class="sec" id="plans"><div class="wrap"><span class="eyebrow">Pricing</span><h2 class="wide">{E(nm)} ke liye {AI} ka kharcha kitna aata hai?</h2><p class="sub ans">Launch plan ki one-time installation 9,999 rupaye aur monthly charge 2,999 rupaye se shuru hota hai. Accelerate aur Titan plan me zyada process jude hote hain. Messaging platform, API aur AI usage ka kharcha aapke apne account se jata hai, aur ye kharcha ek employee ki salary ke 12 se 15 percent tak rehta hai.</p>{PRICING}</div></section>
+<section class="sec" id="plans"><div class="wrap"><span class="eyebrow">Pricing</span><h2 class="wide">{E(nm)} ke liye {AI} ka kharcha kitna aata hai?</h2><p class="sub ans">Launch plan ki one-time installation 14,999 rupaye aur monthly charge 5,999 rupaye se shuru hota hai. Accelerate aur Titan plan me zyada process jude hote hain. Messaging platform, API aur AI usage ka kharcha aapke apne account se jata hai.</p>{PRICING}</div></section>
 <section class="sec fq"><div class="wrap"><span class="eyebrow">Mann me jo sawal hain</span><h2>{E(nm)}: 10 sawal, 10 jawab</h2>{faq}</div></section>
 <section class="sec"><div class="wrap"><div class="glass fin2"><div><h2>Apne {E(nm)} me {AI} lagayein.</h2><p class="sub">Batayiye aapka business kya hai, hum bataenge kaun se manual kaam sabse pehle automate hon.</p></div><a class="btn wab" href="{msg}">{WI}Abhi baat karein</a></div><h3 class="mt2">In shehron me bhi</h3><div class="cgrid">{near}</div>{('<h3 class="mt2">Aur industries</h3><div class="cgrid">' + other + '</div>') if other else ''}</div></section></main>"""
     ld = [{'@context': 'https://schema.org', '@type': 'WebPage', '@id': url, 'url': url, 'name': d['title'], 'description': d['desc'], 'inLanguage': 'hi-Latn', 'isPartOf': {'@type': 'WebSite', 'name': 'autenflo', 'url': SITE}},
           {'@context': 'https://schema.org', '@type': 'Service', 'name': f'AI WhatsApp automation for {nm}', 'serviceType': 'AI business process automation', 'url': url, 'description': d['desc'], 'provider': ORG,
            'areaServed': [{'@type': 'State', 'name': x} for x in ('Bihar', 'Uttar Pradesh', 'Jharkhand')],
-           'offers': {'@type': 'Offer', 'name': 'Launch plan: one-time installation', 'priceCurrency': 'INR', 'price': '9999', 'url': url + '#plans'}},
+           'offers': {'@type': 'Offer', 'name': 'Launch plan: one-time installation', 'priceCurrency': 'INR', 'price': '14999', 'url': url + '#plans'}},
           {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': x, 'acceptedAnswer': {'@type': 'Answer', 'text': y}} for x, y in d['faq']]}]
     page(fp(d['u']), d['title'], d['desc'], main, ld, crumbs=CR)
     return url
@@ -547,7 +585,7 @@ if __name__ == '__main__':
     if os.path.exists(OUT): shutil.rmtree(OUT)
     os.makedirs(OUT + '/assets')
     write('assets/style.css', R('global.css') + '\n' + R('extra.css'))
-    write('assets/site.js', 'var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href*=\'wa.me\']");if(a&&window.gtag)gtag("event","whatsapp_click",{page_path:location.pathname,link_text:(a.textContent||"").trim().slice(0,40)})});var f=document.querySelector("form[name=contact]");if(f)f.addEventListener("submit",function(){if(window.gtag)gtag("event","form_submit",{page_path:location.pathname})});')
+    write('assets/site.js', 'var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href*=\'wa.me\']");if(a&&window.gtag)gtag("event","whatsapp_click",{page_path:location.pathname,link_text:(a.textContent||"").trim().slice(0,40)})});var mi=[].slice.call(document.querySelectorAll(".mi"));function mc(x){mi.forEach(function(m){if(m!==x){m.classList.remove("open");m.querySelector(".mt").setAttribute("aria-expanded","false")}})}mi.forEach(function(m){var b=m.querySelector(".mt");b.addEventListener("click",function(e){var o=(matchMedia("(hover:hover)").matches&&e.detail>0)?true:!m.classList.contains("open");mc(m);m.classList.toggle("open",o);b.setAttribute("aria-expanded",o)});m.addEventListener("mouseenter",function(){if(matchMedia("(hover:hover)").matches){mc(m);m.classList.add("open");b.setAttribute("aria-expanded","true")}});m.addEventListener("mouseleave",function(){if(matchMedia("(hover:hover)").matches){m.classList.remove("open");b.setAttribute("aria-expanded","false")}});m.addEventListener("focusout",function(e){if(!m.contains(e.relatedTarget)){m.classList.remove("open");b.setAttribute("aria-expanded","false")}})});document.addEventListener("keydown",function(e){if(e.key==="Escape")mc(null)});document.addEventListener("click",function(e){if(!e.target.closest(".mi"))mc(null)});var f=document.querySelector("form[name=contact]");if(f)f.addEventListener("submit",function(){if(window.gtag)gtag("event","form_submit",{page_path:location.pathname})});')
     write('assets/home.js', R('home.js'))
     shutil.copy(os.path.join(HERE, 'og.png'), os.path.join(OUT, 'og.png'))
     urls = home_training() + blog_pages() + [cities_index(), industries_index()] + [industry_page(k) for k in IND] + trust_pages() + [hub_page(k) for k in states] + [city_page(c) for c in cities]
@@ -556,7 +594,7 @@ if __name__ == '__main__':
     write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>' for u in urls) + '</urlset>')
     bots = ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-User', 'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'CCBot']
     write('robots.txt', ''.join(f'User-agent: {b}\nAllow: /\nDisallow: /404.html\n\n' for b in bots) + f'User-agent: *\nAllow: /\nDisallow: /404.html\n\nSitemap: {SITE}/sitemap.xml\n')
-    head = ('# autenflo\n\n> autenflo ek AI back-office service hai (Mishratola, Gannipur, Muzaffarpur, Bihar): WhatsApp par enquiry ka 60 second me reply, 1-3-7 din follow-up, marketing aur social media, payment reminder aur data entry. Bihar, Uttar Pradesh aur Jharkhand ke businesses ke liye. Setup Rs 9,999 se, monthly Rs 2,999 se. Contact: hello@autenflo.com, +91 88490 31907. Instagram: https://www.instagram.com/autenfloai/ LinkedIn: https://www.linkedin.com/company/autenflo/\n\n')
+    head = ('# autenflo\n\n> autenflo ek AI back-office service hai (Mishratola, Gannipur, Muzaffarpur, Bihar): WhatsApp par enquiry ka 60 second me reply, 1-3-7 din follow-up, marketing aur social media, payment reminder aur data entry. Bihar, Uttar Pradesh aur Jharkhand ke businesses ke liye. Setup Rs 14,999 se, monthly Rs 5,999 se. Contact: hello@autenflo.com, +91 88490 31907. Instagram: https://www.instagram.com/autenfloai/ LinkedIn: https://www.linkedin.com/company/autenflo/\n\n')
     def sect(title, pred): return f'## {title}\n\n' + ''.join(f'- [{PAGES[u][0]}]({u}): {PAGES[u][1]}\n' for u in urls if u in PAGES and pred(u[len(SITE):])) + '\n'
     isc = lambda p: p.startswith('/ai-whatsapp-automation-') and p.count('-') > 2 and not any(p.endswith(x) for x in ('-bihar/', '-uttar-pradesh/', '-jharkhand/', '-bihar-up-jharkhand/'))
     write('llms.txt', head + sect('Main pages', lambda p: p in ('/', U_TRAIN, U_ABOUT, U_CITIES, U_IND)) + sect('Industries', lambda p: p.startswith('/ai-automation-for-') and p != U_IND) + sect('Blog', lambda p: p.startswith('/blog/')) + sect('Cities', isc) + sect('Policies', lambda p: p in (U_PRIVACY, U_TERMS)) + f'## Full version\n\n- [llms-full.txt]({SITE}/llms-full.txt)\n')
@@ -569,6 +607,7 @@ if __name__ == '__main__':
     page('404.html', 'Page nahi mila | autenflo', 'Ye page nahi mila. autenflo ke home page ya cities page par jaayein.', nf, noindex=True)
     # ---- purane URL -> naye URL (301) ----
     OLD = [('/cities/', U_CITIES), ('/ai-training/', U_TRAIN), ('/about/', U_ABOUT), ('/privacy/', U_PRIVACY), ('/terms/', U_TERMS)]
+    OLD += [('/ai-automation-for-retail-shops/', IND['d2c']['u']), ('/ai-automation-for-hotels-and-travel/', IND['transport']['u']), ('/ai-automation-for-wholesale-and-hardware/', U_IND)]
     OLD += [(f'/{k}/', u_state(k)) for k in states] + [(f'/{c["state"]}/{c["slug"]}/', u_city(c['slug'])) for c in cities]
     OLDF = [(f'/blog/{o}.html', u_post(o)) for o in POST_SLUG]
     red = ['# 301 redirects: purane URL -> naye SEO URL (Netlify / Cloudflare Pages format)']

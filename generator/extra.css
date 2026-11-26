@@ -1,1 +1,76 @@
-/* extra.css: ab sab kuch global.css me hai (design system v2). Is file me sirf chhote page-specific overrides rakhein. */
+/* extra.css: page-specific additions (hero fayda, mega menu, training). Baaki design system global.css me hai. */
+
+/* ---------- hero: seedha fayda ---------- */
+.hl h1{font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.06;letter-spacing:-.04em;margin:0 0 .45em}
+.hb{display:block;width:max-content;max-width:100%;padding:0 .12em;margin-left:-.12em;border-radius:8px}
+.hb:nth-child(1){background:linear-gradient(transparent 62%,var(--blue) 62%)}
+.hb:nth-child(2){background:linear-gradient(transparent 62%,var(--mint) 62%)}
+.hb:nth-child(3){background:linear-gradient(transparent 62%,var(--peach) 62%)}
+.hb.go{font-size:.6em;font-weight:700;letter-spacing:-.02em;color:var(--blue-d);margin-top:.5em;background:none}
+.hl .lead{max-width:46ch}
+.trust{list-style:none;display:flex;flex-wrap:wrap;gap:8px 22px;padding:0;margin:22px 0 0;font-size:.9rem;font-weight:500;color:var(--mut)}
+.trust li{padding-left:22px;position:relative}
+.trust li::before{content:"";position:absolute;left:2px;top:.45em;width:11px;height:6px;border-left:2.5px solid var(--green-d);border-bottom:2.5px solid var(--green-d);rotate:-45deg}
+.hero{padding-bottom:40px}
+.fyw{background:#fff;padding:0 0 8px}
+.fy{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fi{padding:22px 22px 20px;border-radius:18px}
+.fi:nth-child(1){background:var(--blue)}.fi:nth-child(2){background:var(--mint)}.fi:nth-child(3){background:var(--peach)}.fi:nth-child(4){background:var(--lav)}
+.ft{display:inline-block;font:700 .72rem var(--f);letter-spacing:.08em;text-transform:uppercase;background:#fff;padding:4px 10px;border-radius:999px}
+.fi strong{display:block;font:800 clamp(1.8rem,3vw,2.3rem)/1.1 var(--f);letter-spacing:-.04em;margin:12px 0 6px}
+.fi p{margin:0;font-size:.93rem;line-height:1.45;color:#3d475c}
+.fyw+.sec{padding-top:80px}
+
+/* ---------- industry tab footer ---------- */
+.bp-f .cta{margin:0}.bp-f .btn{padding:11px 18px;font-size:.92rem}
+
+/* ---------- AI Training (home) ---------- */
+.trg{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:44px 0 22px}
+.tc{padding:30px 28px;border:0;box-shadow:none}
+.tc:nth-child(1){background:var(--blue)}.tc:nth-child(2){background:var(--mint)}.tc:nth-child(3){background:var(--lav)}
+.tpr{margin:2px 0 4px}.tpr strong{font:800 2.3rem var(--f);letter-spacing:-.04em}.tpr small{color:#46506a;margin-left:4px;font-size:.95rem}
+.tc .sl{margin-top:12px}
+.tz{background:var(--butter);border:0;box-shadow:none}
+.tz>div:not(.tzart):not(.cta){flex:1 1 300px}.tz h3{margin:0 0 6px;font-size:1.4rem}.tz p{margin:0;color:#46506a}
+
+/* ---------- header + mega menu ---------- */
+nav{gap:4px;align-self:stretch;align-items:stretch}
+nav>.ul{align-self:center;padding:8px 12px;font-size:.96rem;font-weight:500;background-image:none}
+nav>.ul:hover{background:var(--tint);border-radius:10px}
+nav>.btn{align-self:center;margin-left:10px}
+.mi{display:flex;align-items:center}
+.mt{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;font:500 .96rem var(--f);color:var(--ink)}
+.mt:hover,.mi.open .mt{background:var(--tint)}.mt:focus-visible{outline:3px solid var(--blue-d);outline-offset:2px}
+.chv{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:rotate .2s}
+.mi.open .chv{rotate:180deg}
+.mm{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 26px 50px rgba(26,34,51,.13)}
+.mi.open .mm,html:not(.js) .mi:hover .mm{display:block}
+.mm-in{max-width:1140px;margin:0 auto;padding:28px 24px 32px;display:grid;grid-template-columns:1.75fr .8fr;gap:30px}
+.mh{display:block;font:700 .74rem var(--f);letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:0 0 14px;text-decoration:none}
+.mg2{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
+.mgi{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start;padding:12px 14px;border-radius:14px;text-decoration:none;color:var(--ink);transition:background .15s}
+.mgi:hover,.mgi:focus-visible{background:var(--tint)}
+.mgi .mn{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;font:700 .8rem var(--f);background:var(--blue)}
+.mgi:nth-child(2) .mn{background:var(--mint)}.mgi:nth-child(3) .mn{background:var(--lav)}.mgi:nth-child(4) .mn{background:var(--peach)}.mgi:nth-child(5) .mn{background:var(--butter)}.mgi:nth-child(6) .mn{background:var(--blue)}
+.mgi b{display:block;font:600 .98rem/1.25 var(--f)}.mgi small{display:block;color:var(--mut);font-size:.82rem;line-height:1.35;margin-top:2px}
+.mm-r{background:var(--butter);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;align-self:start}
+.mm-r b{font:700 1.15rem/1.25 var(--f);letter-spacing:-.02em}.mm-r p{margin:0;font-size:.92rem;color:#46506a;line-height:1.5}
+.mm-r .btn{padding:10px 16px;font-size:.92rem;align-self:flex-start}.mm-r .ul{font-size:.92rem}
+.mm-t{background:var(--lav)}.mm-t .tg2{margin-bottom:2px}
+.mm-t ul{list-style:none;padding:0;margin:4px 0;display:grid;gap:6px;font-size:.93rem}
+.mm-t li{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;background:#fff;border-radius:10px}
+.mcg{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.mc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.mc a{display:block;padding:5px 0;text-decoration:none;color:var(--mut);font-size:.94rem}.mc a:hover{color:var(--blue-d)}
+.mc a.mh{color:var(--blue-d);margin-bottom:10px;padding:0}
+
+/* ---------- mobile menu ---------- */
+.mnav .mp{width:min(92vw,340px);max-height:calc(100vh - 110px);overflow:auto;gap:2px}
+.ms{border:0;background:none;padding:0;margin:0;border-radius:10px}.ms[open]{background:var(--tint)}
+.ms summary{padding:12px 40px 12px 14px;font-weight:600;font-size:1rem}.ms summary::after{right:14px}
+.ms>div{display:grid;padding:0 6px 8px}.ms>div a{font-weight:500;font-size:.95rem;padding:10px 12px}
+.mnav .mp>.btn{margin-top:8px}
+
+@media(max-width:1060px){nav>.ul,nav>.btn,nav>.mi{display:none}.mnav{display:block}}
+@media(max-width:980px){.fy{grid-template-columns:1fr 1fr}.trg{grid-template-columns:1fr}.hb.go{font-size:.62em}}
+@media(max-width:560px){.fy{grid-template-columns:1fr}.hl h1{font-size:clamp(2.1rem,9.5vw,2.8rem)}.tz{padding:26px 22px}.bp-f .cta{width:100%}.bp-f .btn{flex:1 1 100%}}
