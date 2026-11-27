@@ -515,7 +515,7 @@ IND = {
    "muzaffarpur"
   ],
   "title": "Professional Services & Agencies ke liye AI Automation | autenflo",
-  "desc": "CA, vakeel, consultants, insurance agents aur agencies ke liye AI: consultation booking, documents ka reminder, due date alert, fees ki vasooli. Bihar, UP, Jharkhand.",
+  "desc": "CA, vakeel, consultants, insurance agents aur agencies ke liye AI: consultation booking, documents ka reminder, due date alert, fees collection. Bihar, UP, Jharkhand.",
   "h1": "CA, vakeel aur agencies ke liye {AI} jo documents, due date aur fees ka follow-up khud karta hai.",
   "lead": "GST ki last date 3 din door hai. Teen clients ke documents abhi tak nahi aaye, do clients ki fees pichhle mahine se baaki hai, aur ek naya client consultation ke liye poochh raha hai. Ye sab follow-up aap khud kar rahe ho, aur asli kaam peeche chhoot raha hai.",
   "intro": "Professional services ka business aapke time aur client ke bharose par chalta hai. Lekin aadha time documents maangne, due date yaad dilane, status batane aur fees ke reminder me jata hai. Ye sab rules par chalne wale kaam hain, isliye automate ho sakte hain. Neeche wahi 6 jagah hain jahan aapka time aur paisa chhootta hai.",
@@ -589,7 +589,7 @@ IND = {
     "Aap client ki dates ek baar daalte ho. AI due date se pehle client ko tameez se reminder bhejta hai, aur aapko roz ki pending list deta hai."
    ],
    [
-    "Fees ki vasooli me kya madad milegi?",
+    "Fees collection me kya madad milegi?",
     "Kaam hone par invoice auto jata hai, due date par reminder jata hai, aur payment aate hi status update ho jata hai. Aap tay karte ho kitni baar aur kis tone me reminder jaye."
    ],
    [

@@ -13,7 +13,7 @@ R = lambda n: open(os.path.join(HERE, n), encoding='utf-8').read()
 data = json.load(open(os.path.join(HERE, 'cities.json'), encoding='utf-8'))
 states, cities = data['states'], data['cities']
 SITE = 'https://autenflo.com'
-TODAY = '2026-11-26'
+TODAY = '2026-11-27'
 AI = '<b class="aih">AI</b>'
 WA = lambda t: 'https://wa.me/918849031907?text=' + U.quote(t)
 WI = '<svg class="wi" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa"></use></svg>'
@@ -32,12 +32,6 @@ U_BLOG = '/blog/'
 U_IND = '/ai-automation-for-businesses/'
 def u_state(st): return f'/{KW}-{st}/'
 def u_city(slug): return f'/{KW}-{slug}/'
-POST_SLUG = {
- 'missed-enquiry-check-khud-kaise-karein': 'missed-whatsapp-enquiry-kaise-check-karein-7-din',
- 'follow-up-1-3-7-din-ka-rule': 'customer-follow-up-1-3-7-din-rule-templates',
- 'whatsapp-par-60-second-me-reply': 'whatsapp-par-customer-ko-60-second-me-reply-kaise-dein',
-}
-def u_post(old): return f'/blog/{POST_SLUG[old]}/'
 def fp(url): return 'index.html' if url == '/' else url.strip('/') + '/index.html'
 
 def crumbs_html(items):
@@ -58,13 +52,13 @@ IND_TAG = {
     'coaching': 'Admission enquiry, fees aur attendance alert',
     'clinic': 'Appointment, no-show reminder, report alert',
     'realestate': 'Leads, site visit follow-up, installment',
-    'transport': 'Rate quote, gaadi status, bilty aur freight vasooli',
-    'services': 'Documents, due date reminder, fees vasooli',
+    'transport': 'Rate quote, gaadi status, bilty aur freight payment',
+    'services': 'Documents, due date reminder, fees collection',
 }
 SOL_MENU = [
     ('Sales & Follow-up', 'Enquiry ka 60 second me reply, 1-3-7 din follow-up'),
     ('Customer Support 24x7', 'Hindi me jawab, mushkil case seedha aap tak'),
-    ('Quotation, Billing & Vasooli', 'Invoice auto, due date se pehle reminder'),
+    ('Quotation, Billing & Payments', 'Invoice auto, due date se pehle reminder'),
     ('Orders, Stock & Reports', 'Auto record, low stock alert, roz ka summary'),
     ('Marketing & Social Media', 'Posts, reels aur auto-posting'),
 ]
@@ -144,11 +138,6 @@ CITY_SEO = {
  'bokaro': ('Bokaro', 'Transport, Schools', 'Transport aur schools: booking, admission aur payment ka kaam.'),
  'deoghar': ('Deoghar', 'Cab, Retail', 'Shravani Mela me cab aur peda dukaan ke orders ki bheed ek saath sambhalen.'),
 }
-BLOG_SEO_TITLES = {
- 'whatsapp-par-60-second-me-reply': '60 Second me Reply Kaise Dein | autenflo',
- 'follow-up-1-3-7-din-ka-rule': 'Customer Follow-up ka 1-3-7 Din Rule + Templates | autenflo',
- 'missed-enquiry-check-khud-kaise-karein': 'Missed Enquiry Kaise Ginein (7 Din) | autenflo',
-}
 
 def city_seo(slug):
     n, tags, local = CITY_SEO[slug]
@@ -204,9 +193,6 @@ SEO_OV = {
  '/ai-whatsapp-automation-purnia/': (None, 'AI automation, Purnia: manual kaam, follow-up, billing. Makhana traders aur clinics: gaon se aayi enquiry ka turant reply. Setup ₹14,999 se shuru.'),
  '/about-autenflo/': (None, 'autenflo Muzaffarpur, Bihar se chalta hai: AI se sales, marketing, operations, finance aur customer service ke manual kaam automate. Free 15 minute audit.'),
  '/blog/': ('Business, AI aur Marketing Tips | autenflo Blog Hindi', None),
- '/blog/customer-follow-up-1-3-7-din-rule-templates/': (None, 'Enquiry ke baad 1, 3 aur 7 din par kya bhejein, bina customer ko pareshan kiye. Teen chhote message templates ke saath, seedha copy karke use karein.'),
- '/blog/missed-whatsapp-enquiry-kaise-check-karein-7-din/': ('Missed WhatsApp Enquiry Kaise Ginein (7 Din) | autenflo', '15 minute me apni enquiries gin kar dekhiye kitni late ya miss hui, aur us ka lagbhag rupaye me hisaab. Seedha WhatsApp aur call log se, bina software ke.'),
- '/blog/whatsapp-par-customer-ko-60-second-me-reply-kaise-dein/': ('WhatsApp Par 60 Second Me Reply Kaise Dein | autenflo', 'Enquiry aate hi reply dene se order kyun badhte hain, aur chhote business ye kaam bina naya staff rakhe kaise kar sakte hain. Simple steps ke saath.'),
  '/': (None, 'Naya staff nahi, agency nahi, manual work nahi. Aapke business ka AI back-office: enquiry se payment tak har process automate. Free 15 minute audit.'),
  '/privacy-policy/': ('Privacy Policy: Aapka Data Kaise Use Hota Hai | autenflo', 'autenflo kaun si jaankari leta hai, kyun leta hai, kitne samay rakhta hai aur kin ke saath share karta hai. Aapke adhikar aur sampark ki details yahan.'),
  '/terms-of-service/': ('Terms of Service: Charges, AI Seema, Cancellation | autenflo', 'autenflo ki service, charges, AI ki seema, payment aur cancellation ke niyam. Shuru karne se pehle ye saari shartein ek baar dhyan se padh lijiye.'),
@@ -387,43 +373,22 @@ def cities_index():
     return page(fp(U_CITIES), t, d, main, ld, crumbs=CRI)
 
 # ---------- blog ----------
-BLOG_ART = ('<svg viewBox="0 0 400 220" role="img" aria-label="AI" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="220" fill="#CFE0FB"/><circle cx="350" cy="30" r="90" fill="#D6F2E4" opacity=".45"/><circle cx="30" cy="210" r="70" fill="#D6F2E4" opacity=".3"/>'
-            '<g stroke="#fff" stroke-width="3" opacity=".7"><path d="M120 110L200 70L280 120L200 160ZM200 70V160M120 110L280 120"/></g><g fill="#fff"><circle cx="120" cy="110" r="10"/><circle cx="200" cy="70" r="12"/><circle cx="280" cy="120" r="10"/><circle cx="200" cy="160" r="10"/></g>'
-            '<rect x="160" y="100" width="80" height="44" rx="12" fill="#1A2233" opacity=".75"/><text x="200" y="131" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="24" fill="#fff">AI</text></svg>')
-POSTS = [
- {'slug': 'missed-enquiry-check-khud-kaise-karein', 'title': '15 minute me pata karein kitni enquiry miss hui', 'cat': 'Sales', 'date': '2026-11-12', 'dlabel': '12 November 2026',
-  'desc': '15 minute me apni enquiries gin kar dekhiye kitni late ya miss hui, aur us ka lagbhag rupaye me hisaab.',
-  'body': """<p>Zyadatar owner ko lagta hai ki enquiry thodi hi miss hoti hai. Gin kar dekhne par aksar number badha nikalta hai. Ye check aap khud 15 minute me kar sakte hain.</p>
-<h2>Kadam 1: pichhle 7 din ki list banaiye</h2>
-<p>Har jagah se aayi har enquiry ek list me likhiye: kab aayi, kisne bheji, kab reply gaya.</p>
-<h2>Kadam 2: teen cheezein ginein</h2>
-<ol><li>Kul kitni enquiry aayi.</li><li>Kitni ka reply 1 ghante ke baad gaya, ya gaya hi nahi.</li><li>Kitni ka follow-up kabhi hua hi nahi.</li></ol>
-<h2>Kadam 3: rupaye me badliye</h2>
-<p>Late ya miss enquiry ko, jitne % customer theek time par reply milne par ban jaate hain, us se multiply kijiye, phir ek customer ki average value se.</p>
-<blockquote>Late enquiry x conversion % x ek customer ki value = lagbhag itne ka mauka gaya.</blockquote>
-<p>Ye andaza hai, guarantee nahi. Par ye aapka apna data hai, aur isse saaf ho jata hai ki reply ki speed par kaam karna chahiye ya nahi.</p>
-<p>Khud nahi karna chahte? Hamari taraf se ye check free hai.</p>"""},
- {'slug': 'follow-up-1-3-7-din-ka-rule', 'title': 'Ek baar poochhna kaafi nahi: follow-up ka 1-3-7 tareeka', 'cat': 'Sales', 'date': '2026-11-12', 'dlabel': '12 November 2026',
-  'desc': 'Enquiry ke baad 1, 3 aur 7 din par kya bhejein, bina customer ko pareshan kiye. Teen chhote message templates ke saath.',
-  'body': """<p>Bahut si enquiry isliye order nahi banti kyunki ek hi reply ke baad baat khatam ho jati hai. Customer busy tha, bhool gaya, ya doosre se bhi puch raha tha.</p>
-<h2>Din 1: kaam ki yaad</h2>
-<p>“Namaste [naam] ji, kal aapne [cheez] ke baare me poochha tha. Kuch aur jaankari chahiye to bataiye.”</p>
-<h2>Din 3: ek kaam ki cheez</h2>
-<p>“[Naam] ji, [rate / batch / slot] ki ek chhoti jaankari bhej raha hu. Aap chahein to kal [time] par baat kar lein?”</p>
-<h2>Din 7: saaf aur izzat se aakhri message</h2>
-<p>“[Naam] ji, agar abhi sahi samay nahi hai to koi baat nahi. Jab bhi zaroorat ho, yahin message kar dijiye.”</p>
-<ul><li>Har message chhota rakhiye.</li><li>Jo mana kare, use dobara message mat bhejiye.</li><li>Sirf unhe message bhejiye jinhone khud aapko likha ho.</li></ul>
-<p>Ye kaam roz manual karna mushkil hota hai. Isiliye isse automate karna sabse pehla faayda deta hai.</p>"""},
- {'slug': 'whatsapp-par-60-second-me-reply', 'title': '60 second ka reply: customer rukta hai ya chala jaata hai', 'cat': 'AI', 'date': '2026-11-10', 'dlabel': '10 November 2026',
-  'desc': 'Enquiry aate hi reply dene se order kyun badhte hain, aur chhote business ye kaam bina naya staff rakhe kaise kar sakte hain.',
-  'body': """<p>Jo customer pehle reply paata hai, wahi aksar order bhi de deta hai. Phir bhi zyada tar business me enquiry ka reply tab jata hai jab staff ko yaad aata hai.</p>
-<h2>Reply late hone ki 3 wajah</h2>
-<ol><li>Enquiry alag-alag jagah bikhri hoti hai.</li><li>Wahi sawal roz poochhe jaate hain: price, timing, address.</li><li>Raat ko aur chhutti ke din koi reply dene wala nahi hota.</li></ol>
-<h2>Ye kaam aap kaise sambhal sakte hain</h2>
-<ul><li>Sabse zyada poochhe jaane wale 10 sawal aur unke jawab ek jagah likh lijiye.</li><li>Har enquiry ko ek hi list me darj kijiye, taaki koi chhoote nahi.</li><li><b>Hot leads</b> ko alag mark kijiye aur unka follow-up 1, 3 aur 7 din par rakhiye.</li><li>Jo kaam roz dohrata hai, use AI se karwaiye aur sirf zaroori baat apne paas rakhiye.</li></ul>
-<blockquote>Har bhoola hua follow-up, ek bika hua order hai.</blockquote>
-<p>Apne business me ye kahan se shuru karein, ye jaanne ke liye hamse 15 minute baat kar sakte hain.</p>"""},
-]
+from blog_data import POSTS, OLD_POST_REDIRECT
+BLOG_IMG = lambda slug: f'/assets/blog/{slug}.webp'
+POST_BY = {p['slug']: p for p in POSTS}
+def u_post(slug): return f'/blog/{slug}/'
+def _wc(h): return len(re.sub(r'<[^>]+>', ' ', h).split())
+def _body_toc(body):
+    heads = re.findall(r'<h2>(.*?)</h2>', body)
+    for i, h in enumerate(heads, 1): body = body.replace(f'<h2>{h}</h2>', f'<h2 id="s{i}">{h}</h2>', 1)
+    toc = '<nav class="toc" aria-label="Is article me"><b>Is article me</b><ol>' + ''.join(f'<li><a href="#s{i}">{h}</a></li>' for i, h in enumerate(heads, 1)) + '</ol></nav>'
+    return body, toc
+def _related(p):
+    same = [q for q in POSTS if q['kw'] == p['kw'] and q['slug'] != p['slug']]
+    idx = POSTS.index(p)
+    others = [POSTS[(idx + k) % len(POSTS)] for k in (2, 5, 9)]
+    out = same + [q for q in others if q['slug'] != p['slug'] and q not in same]
+    return out[:3]
 
 def blog_pages():
     urls = [SITE + U_BLOG]
@@ -431,28 +396,39 @@ def blog_pages():
     cards = ''
     for p in POSTS:
         url = SITE + u_post(p['slug']); urls.append(url)
+        img = SITE + BLOG_IMG(p['slug'])
         CR = [('Home', '/'), ('Blog', U_BLOG), (p['title'], u_post(p['slug']))]
+        body, toc = _body_toc(p['body'])
+        faq = ''.join(f'<details class="pfq"><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q, a in p['faq'])
+        rel = ''.join(f'<a class="rc" href="{u_post(q["slug"])}"><span class="meta">{E(q["cat"])}</span><b>{E(q["title"])}</b></a>' for q in _related(p))
+        words = _wc(p['answer']) + _wc(p['body']) + sum(_wc(q + ' ' + a) for q, a in p['faq'])
+        p['_words'] = words
         main = f'''<main id="top" class="sec"><div class="wrap">{crumbs_html(CR)}
-<article><div class="post-head"><div><p class="meta">{p['cat']} · {p['dlabel']}</p><h1 class="h1s">{E(p['title'])}</h1><p class="sub">{E(p['desc'])}</p></div><div class="post-art">{BLOG_ART}</div></div>
+<article><header class="post-head"><p class="meta">{E(p['cat'])} · {p['dlabel']} · {max(4, round(words / 200))} min padhne me</p><h1 class="h1s">{E(p['title'])}</h1><p class="sub">{E(p['desc'])}</p></header>
+<figure class="post-fig"><img src="{BLOG_IMG(p['slug'])}" alt="{E(p['alt'], quote=True)}" width="1600" height="900" fetchpriority="high" decoding="async"></figure>
 <div class="prose">
-{p['body']}
+<div class="ans"><b>Seedha jawab</b><p>{p['answer']}</p></div>
+{toc}
+{body}
+<h2 class="faqh">Aksar poochhe jaane wale sawal</h2>
+{faq}
 </div></article>
+<aside class="relw" aria-label="Aur padhein"><h2>Ye bhi padhiye</h2><div class="relg">{rel}</div></aside>
 <div class="glass fin2"><div><h2>Apne business ka free process audit.</h2><p class="sub">15 minute baat karke dekhiye aapke liye kya sahi rahega.</p></div><a class="btn wab" href="{WA('Namaste autenflo, maine aapka blog padha. Mujhe free process audit chahiye.')}">{WI}Abhi baat karein</a></div></div></main>'''
-        seo_t = BLOG_SEO_TITLES.get(p['slug'], f'{p["title"]} | autenflo')
         ld = [{'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': p['title'], 'description': p['desc'], 'datePublished': p['date'], 'dateModified': p['date'], 'inLanguage': 'hi-Latn',
-               'image': [SITE + '/og.png'], 'url': url, 'mainEntityOfPage': {'@type': 'WebPage', '@id': url}, 'author': ORG,
-               'publisher': {'@type': 'Organization', 'name': 'autenflo', 'url': SITE, 'logo': {'@type': 'ImageObject', 'url': SITE + '/logo.png'}}}]
-        page(fp(u_post(p['slug'])), seo_t, p['desc'], main, ld, og='article', crumbs=CR)
-        cards += f'<a class="bc glass" href="{u_post(p["slug"])}">{BLOG_ART}<div><p class="meta">{p["cat"]} · {p["dlabel"]}</p><h3>{E(p["title"])}</h3><p>{E(p["desc"])}</p></div></a>'
-    main = f'''<main id="top" class="sec"><div class="wrap">{crumbs_html(CRB)}<span class="eyebrow">Blog</span><h1 class="h1s">Leads, follow-up aur reply: seedhi bhasha me.</h1><p class="sub">Practical articles: enquiry, follow-up, marketing aur payment ke aasaan tareeke.</p>
+               'image': [img], 'url': url, 'wordCount': words, 'keywords': p['kw'], 'articleSection': p['cat'], 'mainEntityOfPage': {'@type': 'WebPage', '@id': url},
+               'author': ORG, 'publisher': {'@type': 'Organization', 'name': 'autenflo', 'url': SITE, 'logo': {'@type': 'ImageObject', 'url': SITE + '/logo.png'}}},
+              {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in p['faq']]}]
+        page(fp(u_post(p['slug'])), p['seo_title'], p['desc'], main, ld, og='article', crumbs=CR, image=img)
+        cards += f'<a class="bc glass" href="{u_post(p["slug"])}"><img src="{BLOG_IMG(p["slug"])}" alt="{E(p["alt"], quote=True)}" width="1600" height="900" loading="lazy" decoding="async"><div><p class="meta">{E(p["cat"])} · {p["dlabel"]}</p><h3>{E(p["title"])}</h3><p>{E(p["desc"])}</p></div></a>'
+    main = f'''<main id="top" class="sec"><div class="wrap">{crumbs_html(CRB)}<span class="eyebrow">Blog</span><h1 class="h1s">Leads, follow-up aur reply: seedhi bhasha me.</h1><p class="sub">Practical articles: WhatsApp reply, follow-up, templates, clinic, coaching, real estate aur AI training. Sawal ka seedha jawab, copy-paste templates ke saath.</p>
 <div class="bgrid">
-<!-- ✏️ NAYA ARTICLE: POSTS list me ek entry jodo (sabse upar), phir build_site.py dobara chalao -->
 {cards}
 </div></div></main>'''
-    bt, bd = 'Business, AI aur Marketing Tips | autenflo Blog', 'Chhote business ke liye AI, sales, marketing, billing aur payment ke practical tareeke, Hindi me. Message templates aur checklists ke saath.'
+    bt, bd = 'Business, AI aur Marketing Tips | autenflo Blog', 'Chhote business ke liye WhatsApp reply, follow-up, billing aur AI ke practical tareeke, Hindi me. Message templates, checklists aur seedhe jawab ke saath.'
     bl = SITE + U_BLOG
     bld = [{'@context': 'https://schema.org', '@type': 'Blog', '@id': bl, 'url': bl, 'name': 'autenflo Blog', 'description': bd, 'inLanguage': 'hi-Latn', 'publisher': ORG,
-            'blogPost': [{'@type': 'BlogPosting', 'headline': p['title'], 'url': SITE + u_post(p['slug']), 'datePublished': p['date']} for p in POSTS]}]
+            'blogPost': [{'@type': 'BlogPosting', 'headline': p['title'], 'url': SITE + u_post(p['slug']), 'datePublished': p['date'], 'image': SITE + BLOG_IMG(p['slug'])} for p in POSTS]}]
     page(fp(U_BLOG), bt, bd, main, bld, crumbs=CRB)
     return urls
 
@@ -588,6 +564,9 @@ if __name__ == '__main__':
     write('assets/site.js', 'var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href*=\'wa.me\']");if(a&&window.gtag)gtag("event","whatsapp_click",{page_path:location.pathname,link_text:(a.textContent||"").trim().slice(0,40)})});var mi=[].slice.call(document.querySelectorAll(".mi"));function mc(x){mi.forEach(function(m){if(m!==x){m.classList.remove("open");m.querySelector(".mt").setAttribute("aria-expanded","false")}})}mi.forEach(function(m){var b=m.querySelector(".mt");b.addEventListener("click",function(e){var o=(matchMedia("(hover:hover)").matches&&e.detail>0)?true:!m.classList.contains("open");mc(m);m.classList.toggle("open",o);b.setAttribute("aria-expanded",o)});m.addEventListener("mouseenter",function(){if(matchMedia("(hover:hover)").matches){mc(m);m.classList.add("open");b.setAttribute("aria-expanded","true")}});m.addEventListener("mouseleave",function(){if(matchMedia("(hover:hover)").matches){m.classList.remove("open");b.setAttribute("aria-expanded","false")}});m.addEventListener("focusout",function(e){if(!m.contains(e.relatedTarget)){m.classList.remove("open");b.setAttribute("aria-expanded","false")}})});document.addEventListener("keydown",function(e){if(e.key==="Escape")mc(null)});document.addEventListener("click",function(e){if(!e.target.closest(".mi"))mc(null)});var f=document.querySelector("form[name=contact]");if(f)f.addEventListener("submit",function(){if(window.gtag)gtag("event","form_submit",{page_path:location.pathname})});')
     write('assets/home.js', R('home.js'))
     shutil.copy(os.path.join(HERE, 'og.png'), os.path.join(OUT, 'og.png'))
+    shutil.copytree(os.path.join(HERE, 'blog_images'), os.path.join(OUT, 'assets', 'blog'))
+    for lg in ('logo.png', 'logo.webp'):
+        if os.path.exists(os.path.join(HERE, lg)): shutil.copy(os.path.join(HERE, lg), os.path.join(OUT, lg))
     urls = home_training() + blog_pages() + [cities_index(), industries_index()] + [industry_page(k) for k in IND] + trust_pages() + [hub_page(k) for k in states] + [city_page(c) for c in cities]
     skip = {SITE + '/' + p.replace('index.html', '').lstrip('/') for p in NOINDEX}
     urls = [u for u in urls if u not in skip]
@@ -609,10 +588,10 @@ if __name__ == '__main__':
     OLD = [('/cities/', U_CITIES), ('/ai-training/', U_TRAIN), ('/about/', U_ABOUT), ('/privacy/', U_PRIVACY), ('/terms/', U_TERMS)]
     OLD += [('/ai-automation-for-retail-shops/', IND['d2c']['u']), ('/ai-automation-for-hotels-and-travel/', IND['transport']['u']), ('/ai-automation-for-wholesale-and-hardware/', U_IND)]
     OLD += [(f'/{k}/', u_state(k)) for k in states] + [(f'/{c["state"]}/{c["slug"]}/', u_city(c['slug'])) for c in cities]
-    OLDF = [(f'/blog/{o}.html', u_post(o)) for o in POST_SLUG]
+    OLDF = [(f'/blog/{o}.html', u_post(n)) for o, n in OLD_POST_REDIRECT]
     red = ['# 301 redirects: purane URL -> naye SEO URL (Netlify / Cloudflare Pages format)']
     for o, n in OLD: red += [f'{o} {n} 301', f'{o}index.html {n} 301']
-    for o, n in OLDF: red += [f'{o} {n} 301', f'{o[:-5]} {n} 301']
+    for o, n in OLDF: red += [f'{o} {n} 301', f'{o[:-5]} {n} 301', f'{o[:-5]}/ {n} 301']
     write('_redirects', '\n'.join(red) + '\n')
     ht = ['# 301 redirects (Apache). Agar aap Netlify/Cloudflare Pages par ho to ye file ignore hoti hai, _redirects kaam karti hai.', 'ErrorDocument 404 /404.html', 'Options -Indexes', '']
     for o, n in OLD: ht.append(f'RedirectMatch 301 ^{o}(index\\.html)?$ {n}')
